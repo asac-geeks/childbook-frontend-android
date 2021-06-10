@@ -95,9 +95,11 @@ First you will visit the home page you can access from the home page multi pages
 
 # Domain Modeling
 ### Wireframe:
-[Wireframe 1](https://drive.google.com/file/d/1YHFF0eS7wqgB7sxjqYytSd3gE5ZzUJBb/view?usp=sharing)
+[Wireframe 1](https://drive.google.com/file/d/18hsHBdq2ZBtRD2U_tTWPmGOWjHJ-Fy6T/view?usp=sharing)
 
-[Wireframe 2](https://drive.google.com/file/d/1RVBsixI-UtQtVmCiAk24s0qwkJmjqPel/view?usp=sharing)
+[Wireframe 2](https://drive.google.com/file/d/1QFeiG54j-ikAq35dLA1vVT5QR5fVekrD/view?usp=sharing)
+
+[Wireframe 3](https://drive.google.com/file/d/1haRTnBNwIa7B8UZZqFCtH5_SkY5pfPWj/view?usp=sharing)
 
 # DataBase 
 ### The Schema of the DB:# Software Requirements :
