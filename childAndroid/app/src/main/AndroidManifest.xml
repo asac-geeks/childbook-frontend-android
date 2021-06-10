@@ -14,11 +14,6 @@
         <activity android:name=".DrawBoardActivity" />
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".AddUserActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
