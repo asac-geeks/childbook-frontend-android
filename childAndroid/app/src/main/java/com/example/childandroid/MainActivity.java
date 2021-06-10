@@ -22,17 +22,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 //        SocketInstance instance = (SocketInstance)getApplication();
 //        ops.query = "Bearer " + "authToken";
 //        mSocket = instance.getSocketInstance();
 
     }
 
-    public void goTo(View view) {
+    public void goToBoard(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, DrawBoardActivity.class);
         startActivity(intent);
     }
 
+    public void goToChat(View view) {
+        // Do something in response to button click
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
+    }
 }
