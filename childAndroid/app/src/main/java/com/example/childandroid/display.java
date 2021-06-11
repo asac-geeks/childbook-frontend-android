@@ -33,6 +33,8 @@ public class display extends View {
     public ViewGroup.LayoutParams params;
     public static int current;
     public static int current_color = Color.BLACK;
+    JSONObject data;
+    private boolean isFromUser = false;
     private Socket mSocket;
     {
         try {
@@ -83,8 +85,8 @@ public class display extends View {
         mSocket.on("drew message", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                JSONObject data = (JSONObject)args[0];
-                System.out.println(data);
+                data = (JSONObject)args[0];
+                draw(new Canvas());
             };
         });
         System.out.println("join Board");
@@ -120,12 +122,22 @@ public class display extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        BoardMessage boardMessage = new BoardMessage(paths,colors,paint);
-        mSocket.emit("chat message", boardMessage);
-        for (int i = 0; i < paths.size();i++){
-            paint.setColor(colors.get(i));
-            canvas.drawPath(paths.get(i),paint);
-            invalidate();
+        if(isFromUser){
+            for (int i = 0; i < paths.size();i++){
+                paint.setColor(colors.get(i));
+                canvas.drawPath(paths.get(i),paint);
+                invalidate();
+            }
+            isFromUser = false;
+        }else {
+            BoardMessage boardMessage = new BoardMessage(paths,colors,paint);
+            mSocket.emit("chat message", boardMessage);
+            for (int i = 0; i < paths.size();i++){
+                paint.setColor(colors.get(i));
+                canvas.drawPath(paths.get(i),paint);
+                invalidate();
+            }
         }
+
     }
 }
