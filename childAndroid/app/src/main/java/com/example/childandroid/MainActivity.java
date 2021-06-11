@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
               Intent feedPageActivityIntent = new Intent(this, FeedPageActivity.class);
               startActivity(feedPageActivityIntent);
          });
+
+        findViewById(R.id.mainGameButton).setOnClickListener(v ->{
+            Intent feedPageActivityIntent = new Intent(this, GameDetailsActivity.class);
+            startActivity(feedPageActivityIntent);
+        });
+
     }
 
 
