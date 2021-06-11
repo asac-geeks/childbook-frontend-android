@@ -15,6 +15,9 @@
         <activity android:name=".GameDetailsActivity"></activity>
         <activity android:name=".FeedPageActivity" />
         <activity android:name=".DrawBoardActivity" />
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".AddUserActivity">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
