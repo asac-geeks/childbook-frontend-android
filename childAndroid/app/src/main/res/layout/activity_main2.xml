@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/board_page"
+        android:backgroundTint="@color/first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="goToBoard"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:onClick="goToChat"
         android:text="Chat"
+        android:backgroundTint="@color/first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
