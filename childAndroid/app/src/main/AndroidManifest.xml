@@ -10,7 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ChildAndroid">
+        android:theme="@style/Theme.ChildAndroid"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".GameDetailsActivity"></activity>
+        <activity android:name=".FeedPageActivity" />
         <activity android:name=".DrawBoardActivity" />
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".AddUserActivity">
