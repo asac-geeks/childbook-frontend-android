@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildAndroid">
+        <activity android:name=".SignUp"></activity>
         <activity android:name=".DrawBoardActivity" />
-        <activity android:name=".ChatActivity"></activity>
-        <activity android:name=".AddUserActivity">
-        </activity>
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".AddUserActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

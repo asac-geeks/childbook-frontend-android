@@ -40,4 +40,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddUserActivity.class);
         startActivity(intent);
     }
+    public void goSignUp(View view) {
+        // Do something in response to button click
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
+    }
 }
