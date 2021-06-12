@@ -9,5 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFEB3B</color>
     <color name="green">#69F436</color>
+    <color name="first">#E8021A</color>
+    <color name="second">#0213F2</color>
+    <color name="third">#0DDB5C</color>
+    <color name="fourth">#F2CE02</color>
+    <color name="fifth">#EB3619</color>
     <color name="pink">#F436B5</color>
 </resources>

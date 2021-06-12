@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-//        SocketInstance instance = (SocketInstance)getApplication();
-//        ops.query = "Bearer " + "authToken";
-//        mSocket = instance.getSocketInstance();
+        SocketInstance instance = (SocketInstance)getApplication();
+        ops.query = "Bearer " + "authToken";
+        mSocket = instance.getSocketInstance();
 
          findViewById(R.id.feeds_button).setOnClickListener(v ->{
               Intent feedPageActivityIntent = new Intent(this, FeedPageActivity.class);
