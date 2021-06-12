@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.example.childandroid.modules.AppUser;
 import com.example.childandroid.modules.ParentResponse;
@@ -51,48 +52,64 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                 .url(url)
                 .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTMxMDY1LCJpYXQiOjE2MjM0OTUwNjV9.B4CoEPo3Jp6jE8WhY9nIOXFp5JoM5j7Colpmh_yyNpU")
                 .build();
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                e.printStackTrace();
-            }
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if(response.isSuccessful()){
-                    Gson gson = new Gson();
-                    // serialize
-                    String body = response.body().string();
-                    System.out.println("isSuccessful");
-                    System.out.println(body);
-                    System.out.println(response.body());
-                    System.out.println(response.body());
 
-                    ParentResponse parent = gson.fromJson(body,  ParentResponse.class);
-                    System.out.println("after Success");
-                    System.out.println(parent);
-                    List arr = new ArrayList();
-                    arr.addAll(parent.getChildren());
-                    children = arr;
+        final Handler handler = new Handler();
+        final int delay = 10000; // 1000 milliseconds == 1 second
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                System.out.println("myHandler: here!"); // Do your work here
+                httpClient.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        e.printStackTrace();
+                    }
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        if(response.isSuccessful()){
+                            Gson gson = new Gson();
+                            // serialize
+                            String body = response.body().string();
+                            System.out.println("isSuccessful");
+                            System.out.println(body);
+                            System.out.println(response.body());
+                            System.out.println(response.body());
 
+                            ParentResponse parent = gson.fromJson(body,  ParentResponse.class);
+                            System.out.println("after Success");
+                            System.out.println(parent);
+                            List arr = new ArrayList();
+                            arr.addAll(parent.getChildren());
+                            children = arr;
+
+                        }
+                    }
+                });
+                try{
+                    Thread.sleep(4000);
+                    System.out.println(children);
+                    System.out.println("children");
+
+                    onMapReady(map);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
                 }
+
+                handler.postDelayed(this, delay);
+
             }
-        });
+        }, delay);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_parent);
+        mapFragment.getMapAsync(this);
         recyclerView = (RecyclerView) findViewById(R.id.rec_id_child);
         try{
-            Thread.sleep(3000);
-            System.out.println(children);
-            System.out.println("children");
+            Thread.sleep(4000);
             parentPageAdapter = new ParentPageAdapter(context, children);
             recyclerView.setAdapter(parentPageAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map_parent);
-            mapFragment.getMapAsync(this);
         }catch(InterruptedException e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
