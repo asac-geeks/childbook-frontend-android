@@ -54,7 +54,10 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                 .build();
 
         final Handler handler = new Handler();
+        recyclerView = (RecyclerView) findViewById(R.id.rec_id_child);
+
         final int delay = 10000; // 1000 milliseconds == 1 second
+        Context that = this;
         handler.postDelayed(new Runnable() {
             public void run() {
                 System.out.println("myHandler: here!"); // Do your work here
@@ -88,7 +91,9 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                     Thread.sleep(4000);
                     System.out.println(children);
                     System.out.println("children");
-
+                    parentPageAdapter = new ParentPageAdapter(context, children);
+                    recyclerView.setAdapter(parentPageAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(that));
                     onMapReady(map);
                 }catch(InterruptedException e){
                     e.printStackTrace();
@@ -101,15 +106,6 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_parent);
         mapFragment.getMapAsync(this);
-        recyclerView = (RecyclerView) findViewById(R.id.rec_id_child);
-        try{
-            Thread.sleep(4000);
-            parentPageAdapter = new ParentPageAdapter(context, children);
-            recyclerView.setAdapter(parentPageAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -46,7 +46,7 @@ public class ParentPageAdapter extends RecyclerView.Adapter<ParentPageAdapter.Vi
                 Intent k = new Intent(context, ChildActivity.class);
                 TextView childName = (TextView) v.findViewById(R.id.name);
 
-                k.putExtra("childName",childName.getText().toString());
+//                k.putExtra("childName",childName.getText().toString());
                 context.startActivity(k);
             }
         });
