@@ -36,22 +36,22 @@ public class AppUser {
 
 	private String location;
 
-	private LocalDate dateOfBirth;
+//	private LocalDate dateOfBirth;
+//
+//	public LocalDate getDateOfBirth() {
+//		return dateOfBirth;
+//	}
 
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
+//	public void setDateOfBirth(LocalDate dateOfBirth) {
+//		this.dateOfBirth = dateOfBirth;
+//	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public AppUser(String userName, String password, String email, Parent parent ,LocalDate dateOfBirth,String location) {
+	public AppUser(String userName, String password, String email, Parent parent ,String location) {
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.parent = parent;
-		this.dateOfBirth = dateOfBirth;
+//		this.dateOfBirth = dateOfBirth;
 		this.location = location;
 	}
 
@@ -73,6 +73,7 @@ public class AppUser {
 
 
 	Set<Message> SentFromUserMessage;
+
 	Set<Message> SentToUserMessage;
 
 	List<GamesApi> FavouriteGames;
@@ -190,6 +191,7 @@ public class AppUser {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
 
 	public Set<GroupAttendees> getAttendees() {
 		return attendees;
