@@ -45,11 +45,6 @@ public class ParentTemporaryCommentsAdapter extends RecyclerView.Adapter<ParentT
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent k = new Intent(context, ChildActivity.class);
-                TextView childName = (TextView) v.findViewById(R.id.name);
-
-                k.putExtra("childName",childName.getText().toString());
-                context.startActivity(k);
             }
         });
 

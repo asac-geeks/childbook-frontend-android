@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -39,7 +40,6 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
     private RecyclerView recyclerView;
     private ParentPageAdapter parentPageAdapter;
     List<AppUser> children = new ArrayList();
-    private String location = "";
     GoogleMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +50,13 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTMxMDY1LCJpYXQiOjE2MjM0OTUwNjV9.B4CoEPo3Jp6jE8WhY9nIOXFp5JoM5j7Colpmh_yyNpU")
+                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
                 .build();
 
         final Handler handler = new Handler();
         recyclerView = (RecyclerView) findViewById(R.id.rec_id_child);
 
-        final int delay = 10000; // 1000 milliseconds == 1 second
-        Context that = this;
+        final int delay = 3000; // 1000 milliseconds == 1 second
         handler.postDelayed(new Runnable() {
             public void run() {
                 System.out.println("myHandler: here!"); // Do your work here
@@ -88,12 +87,12 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                     }
                 });
                 try{
-                    Thread.sleep(4000);
+                    Thread.sleep(5000);
                     System.out.println(children);
                     System.out.println("children");
                     parentPageAdapter = new ParentPageAdapter(context, children);
                     recyclerView.setAdapter(parentPageAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(that));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
                     onMapReady(map);
                 }catch(InterruptedException e){
                     e.printStackTrace();
@@ -106,6 +105,13 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_parent);
         mapFragment.getMapAsync(this);
+
+
+        findViewById(R.id.notifications).setOnClickListener(v ->{
+            Intent  notificationsPageActivityIntent = new Intent(this, NotificationsActivity.class);
+            startActivity(notificationsPageActivityIntent);
+        });
+
     }
 
     @Override
