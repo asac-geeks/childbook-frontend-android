@@ -1,12 +1,10 @@
 package com.example.childandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.childandroid.modules.GamesApi;
@@ -26,26 +24,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class FeedPageActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
+public class GamesPageActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_page);
+        setContentView(R.layout.activity_games_page);
 
-        // ---------------------------- YouTube Logic Start-------------------------- //
+        // ---------------------------- Games Api Logic Start-------------------------- //
             findViewById(R.id.feedPageSearchButton).setOnClickListener(v->{
-                TextView searchValue = findViewById(R.id.youTubeSearchTextFeild);
+                TextView searchValue = findViewById(R.id.gamesApiSearchTextFeild);
                  String value = searchValue.getText().toString();
                  getDataFromUrl(value);
 
             });
-        // ---------------------------- YouTube Logic End-------------------------- //
-
+        // ---------------------------- Games Api Logic End-------------------------- //
     }
-    // ---------------------------- YouTube Methods Logic Start-------------------------- //
+    // ---------------------------- Games Api Methods Logic Start-------------------------- //
     public void getDataFromUrl(String searchValue){
         String url = "https://as-childbook.herokuapp.com/games/category/"+ searchValue;
         OkHttpClient httpClient = new OkHttpClient();
@@ -67,24 +63,17 @@ public class FeedPageActivity extends AppCompatActivity {
                     Type listType = new TypeToken<ArrayList<GamesApi>>(){}.getType();
                     List<GamesApi> games = new Gson().fromJson(body, listType);
 
-                    FeedPageActivity.this.runOnUiThread(new Runnable() {
+                    GamesPageActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                             for(GamesApi game : games){
-                                     Log.d("Game", "Game item : " + game.getId()+" - " + game.getTitle());
-                             }
-
-//                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                            Adapter adapter = new Adapter(games);
-                            recyclerView.setAdapter(adapter);
-//                            adapter.setOnItemClickListener(MainActivity.this);
-                            recyclerView.setAdapter(adapter);
+                            GamesAdapter gamesAdapter = new GamesAdapter(games);
+                            ListView listView = findViewById(R.id.gamesListView);
+                            listView.setAdapter(gamesAdapter);
                         }
                     });
-
                 }
             }
         });
     }
-    // ---------------------------- YouTube Methods Logic End-------------------------- //
+    // ---------------------------- Games Api Methods Logic End-------------------------- //
 }

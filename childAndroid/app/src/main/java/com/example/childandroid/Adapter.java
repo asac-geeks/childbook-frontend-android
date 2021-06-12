@@ -60,8 +60,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
        ImageView img;
        public ViewHolder(@NonNull @NotNull View itemView) {
            super(itemView);
-           title =  itemView.findViewById(R.id.gameTitleRecyclerItem);
-           img = itemView.findViewById(R.id.gameThumbnailRecyclerItem);
+           title =  itemView.findViewById(R.id.gameTitleListViewItem);
+           img = itemView.findViewById(R.id.gameThumbnailListViewItem);
        }
     }
 }
