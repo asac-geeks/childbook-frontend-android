@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.childandroid.modules.login;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -52,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
     public void goToChat(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToLogin(View view) {
+        // Do something in response to button click
+        Intent intent = new Intent(this, login.class);
         startActivity(intent);
     }
 }

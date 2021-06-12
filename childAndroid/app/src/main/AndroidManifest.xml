@@ -31,11 +31,13 @@
 
         <activity android:name=".ChildActivity" />
         <activity android:name=".ParentActivity" />
+        <activity android:name=".modules.login"></activity>
         <activity android:name=".GameDetailsActivity" />
         <activity android:name=".FeedPageActivity" />
         <activity android:name=".DrawBoardActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".AddUserActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
