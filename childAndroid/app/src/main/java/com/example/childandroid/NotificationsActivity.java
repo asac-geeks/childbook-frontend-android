@@ -75,20 +75,22 @@ public class NotificationsActivity extends AppCompatActivity {
                     arr.addAll(parentResponse.getComments());
 
                     parentTemporaryCommentsAdapter = new ParentTemporaryCommentsAdapter(this, arr);
-                    recyclerViewComments.setAdapter(parentTemporaryCommentsAdapter);
-//                    recyclerViewComments.setLayoutManager(new LinearLayoutManager(that));
 
                     arr = new ArrayList();
                     arr.addAll(parentResponse.getPosts());
                     parentTemporaryPostsAdapter = new ParentTemporaryPostsAdapter(this, arr);
-                    recyclerViewPost.setAdapter(parentTemporaryPostsAdapter);
-//                    recyclerViewPost.setLayoutManager(new LinearLayoutManager(that));
 
                     arr = new ArrayList();
                     arr.addAll(parentResponse.getShares());
                     parentTemporaryShareAdapter = new ParentTemporaryShareAdapter(this, arr);
+
+                    recyclerViewComments.setAdapter(parentTemporaryCommentsAdapter);
+                    recyclerViewPost.setAdapter(parentTemporaryPostsAdapter);
                     recyclerViewShares.setAdapter(parentTemporaryShareAdapter);
-//                    recyclerViewShares.setLayoutManager(new LinearLayoutManager(that));
+
+                    recyclerViewPost.setLayoutManager(new LinearLayoutManager(this));
+                    recyclerViewShares.setLayoutManager(new LinearLayoutManager(this));
+                    recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
 
                 }catch(InterruptedException e){
                     e.printStackTrace();
