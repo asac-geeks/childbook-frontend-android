@@ -26,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
 //        mSocket = instance.getSocketInstance();
 
          findViewById(R.id.feeds_button).setOnClickListener(v ->{
-              Intent feedPageActivityIntent = new Intent(this, FeedPageActivity.class);
+              Intent feedPageActivityIntent = new Intent(this, ParentSignInActivity.class);
               startActivity(feedPageActivityIntent);
          });
+
+
     }
 
 
