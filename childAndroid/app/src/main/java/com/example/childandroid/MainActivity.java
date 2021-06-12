@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(feedPageActivityIntent);
         });
 
+        findViewById(R.id.parent_account).setOnClickListener(v ->{
+            Intent parentIntent = new Intent(this, ParentActivity.class);
+            startActivity(parentIntent);
+        });
+
+
     }
 
     public void goToBoard(View view) {
