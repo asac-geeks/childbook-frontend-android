@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToBoard(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, DrawBoardActivity.class);
-//        startActivity(intent);
+        startActivity(intent);
     }
 
     public void goToChat(View view) {
