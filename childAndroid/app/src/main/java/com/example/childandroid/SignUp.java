@@ -3,6 +3,7 @@ package com.example.childandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -130,7 +131,10 @@ findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
              if(response.isSuccessful()){
                     String myResponse=response.body().string();
                     response.code();
-                    response.isSuccessful();             }
+                    response.isSuccessful();
+                 Intent parentverification=new Intent(SignUp.this,ParentVerification.class);
+                 startActivity(parentverification);
+             }
             }
         });
 // try {
