@@ -2,8 +2,12 @@ package com.example.childandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +21,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,6 +46,7 @@ public class GamesPageActivity extends AppCompatActivity {
             });
         // ---------------------------- Games Api Logic End-------------------------- //
     }
+
     // ---------------------------- Games Api Methods Logic Start-------------------------- //
     public void getDataFromUrl(String searchValue){
         String url = "https://as-childbook.herokuapp.com/games/category/"+ searchValue;
@@ -57,7 +63,6 @@ public class GamesPageActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if(response.isSuccessful()){
-                    Gson gson = new Gson();
                     // serialize
                     String body = response.body().string();
                     Type listType = new TypeToken<ArrayList<GamesApi>>(){}.getType();

@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
          });
 
         findViewById(R.id.mainGameButton).setOnClickListener(v ->{
-            Intent feedPageActivityIntent = new Intent(this, GameDetailsActivity.class);
-            startActivity(feedPageActivityIntent);
+            Intent gameDetail = new Intent(this, GameDetailsActivity.class);
+            startActivity(gameDetail);
         });
 
     }

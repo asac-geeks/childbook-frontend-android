@@ -34,8 +34,13 @@ public class GameDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_details);
+            Integer id = getIntent().getIntExtra("id",1);
+            Log.d("id : ", "is id from game detail activity: " + id);
+            makeRequest(id);
+    }
 
-        String url = "https://as-childbook.herokuapp.com/games/1";
+    public void makeRequest(Integer id){
+        String url = "https://as-childbook.herokuapp.com/games/"+id;
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(0, TimeUnit.SECONDS)
                 .readTimeout(0, TimeUnit.SECONDS)
@@ -67,26 +72,19 @@ public class GameDetailsActivity extends AppCompatActivity {
                             TextView profile = findViewById(R.id.gameDetailsProfile);
                             TextView description = findViewById(R.id.gameDetailsDescription);
 
-              Log.d("game image: ", "image url: "+ game.getThumbnail());
-                   title.setText(game.getTitle());
-
-                   Glide.with(getApplicationContext())
-                              .load(game.getThumbnail())
-                           .placeholder(R.drawable.ic_launcher_foreground)
-                              .into(image);
-
-                   genre.setText(game.getGenre());
-                   platform.setText(game.getPlatform());
-                   profile.setText(game.getFreetogame_profile_url());
-
-                   description.setText(game.getShort_description());
-                   System.out.println("details discription: " + description.getText().toString());
-
+                            title.setText(game.getTitle());
+                            Glide.with(getApplicationContext())
+                                    .load(game.getThumbnail())
+                                    .placeholder(R.drawable.ic_launcher_foreground)
+                                    .into(image);
+                            genre.setText(game.getGenre());
+                            platform.setText(game.getPlatform());
+                            profile.setText(game.getFreetogame_profile_url());
+                            description.setText(game.getShort_description());
                         }
                     });
                 }
             }
         });
-
     }
 }

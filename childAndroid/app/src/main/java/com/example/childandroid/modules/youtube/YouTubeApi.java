@@ -17,6 +17,9 @@ public class YouTubeApi {
         this.items = items;
     }
 
+    public YouTubeApi(List<YouTubeApi> youTubeApi) {
+    }
+
     public String getNextPageToken() {
         return nextPageToken;
     }

@@ -7,18 +7,6 @@
     tools:context=".GamesPageActivity">
 
     <TextView
-        android:id="@+id/feed_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Feed Page"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,9 +14,7 @@
         app:layout_constraintBottom_toTopOf="@+id/gamesApiSearchTextFeild"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feed_page"
-        app:layout_constraintVertical_bias="0.688" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/gamesApiSearchTextFeild"
