@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +10,18 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.childandroid.modules.Post;
-import com.example.childandroid.modules.TemporaryComment;
 
 import java.util.List;
 
 public class PostsAdapter  extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView body;
+        TextView body,title,username,id;
         public ViewHolder (View itemView){
             super(itemView);
-            body = itemView.findViewById(R.id.com_body);
+            body = itemView.findViewById(R.id.post_body);
+            title = itemView.findViewById(R.id.post_title);
+            username= itemView.findViewById(R.id.post_user);
+            id = itemView.findViewById(R.id.post_id);
         }
     }
 
@@ -40,9 +43,16 @@ public class PostsAdapter  extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
     public void onBindViewHolder(PostsAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
         holder.body.setText(post.getBody());
+        holder.title.setText(post.getPostTitle());
+        holder.username.setText(post.getAppUser().getUserName());
+        holder.id.setText(post.getId());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent k = new Intent(context, PostDelailsActivity.class);
+                TextView id =  v.findViewById(R.id.post_id);
+                k.putExtra("id",id.getText().toString());
+                context.startActivity(k);
             }
         });
 

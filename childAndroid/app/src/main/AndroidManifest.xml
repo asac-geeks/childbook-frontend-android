@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildAndroid"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddPost_Activity"></activity>
+        <activity android:name=".PostDelailsActivity"></activity>
+        <activity android:name=".AddPost_Activity" />
         <activity android:name=".MyPostActivity" />
         <activity android:name=".AllPostsActivity" />
         <activity android:name=".updateChildActivity" />
