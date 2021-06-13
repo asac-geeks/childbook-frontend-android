@@ -28,7 +28,7 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
+        <activity android:name=".SignUp"></activity>
         <activity android:name=".ChildActivity" />
         <activity android:name=".ParentActivity" />
         <activity android:name=".modules.login"></activity>
@@ -46,5 +46,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
