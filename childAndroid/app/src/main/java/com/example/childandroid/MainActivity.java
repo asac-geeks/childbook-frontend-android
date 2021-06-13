@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+      public void goSignUp(View view) {
+        // Do something in response to button click
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
+    }
     public void goToLogin(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, login.class);
