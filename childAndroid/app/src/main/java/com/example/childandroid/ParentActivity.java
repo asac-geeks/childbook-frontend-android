@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.childandroid.modules.AppUser;
+import com.example.childandroid.modules.Parent;
 import com.example.childandroid.modules.ParentResponse;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,8 +40,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 public class ParentActivity extends FragmentActivity implements OnMapReadyCallback {
     private RecyclerView recyclerView;
     private ParentPageAdapter parentPageAdapter;
-    List<AppUser> children = new ArrayList();
-    GoogleMap map;
+    private Parent parentOut =new Parent();
+    private List<AppUser> children = new ArrayList();
+    private GoogleMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Context context = this;
@@ -56,9 +58,6 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         final Handler handler = new Handler();
         recyclerView = (RecyclerView) findViewById(R.id.rec_id_child);
 
-        final int delay = 3000; // 1000 milliseconds == 1 second
-        handler.postDelayed(new Runnable() {
-            public void run() {
                 System.out.println("myHandler: here!"); // Do your work here
                 httpClient.newCall(request).enqueue(new Callback() {
                     @Override
@@ -75,9 +74,10 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                             System.out.println(body);
                             System.out.println(response.body());
                             System.out.println(response.body());
-
                             ParentResponse parent = gson.fromJson(body,  ParentResponse.class);
-                            System.out.println("after Success");
+                            parentOut = parent.getParent();
+                            System.out.println("parentOut");
+                            System.out.println(parentOut);
                             System.out.println(parent);
                             List arr = new ArrayList();
                             arr.addAll(parent.getChildren());
@@ -93,24 +93,26 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                     parentPageAdapter = new ParentPageAdapter(context, children);
                     recyclerView.setAdapter(parentPageAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    onMapReady(map);
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.map_parent);
+                    mapFragment.getMapAsync(this);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
 
-                handler.postDelayed(this, delay);
 
-            }
-        }, delay);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_parent);
-        mapFragment.getMapAsync(this);
 
 
         findViewById(R.id.notifications).setOnClickListener(v ->{
             Intent  notificationsPageActivityIntent = new Intent(this, NotificationsActivity.class);
             startActivity(notificationsPageActivityIntent);
         });
+        findViewById(R.id.update_parent).setOnClickListener(v ->{
+            Intent  updateParentPageActivityIntent = new Intent(this, UpdateParentAccountActivity.class);
+            System.out.println("parentResponse.getParent()");
+            startActivity(updateParentPageActivityIntent);
+        });
+
 
     }
 

@@ -40,6 +40,10 @@ public class Parent {
         return parentEmail;
     }
 
+    public String getParentPassword() {
+        return parentPassword;
+    }
+
     public void setParentEmail(String parentEmail) {
         this.parentEmail = parentEmail;
     }
