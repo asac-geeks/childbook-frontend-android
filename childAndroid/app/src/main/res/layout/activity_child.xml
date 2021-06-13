@@ -6,4 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".ChildActivity">
 
+    <TextView
+        android:id="@+id/child_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/child_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_username" />
+
+    <TextView
+        android:id="@+id/child_parent_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_date" />
+
+    <Button
+        android:id="@+id/update_profile_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="updateChild"
+        android:text="Upate Profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_parent_email" />
+
+    <TextView
+        android:id="@+id/my_posts"
+        android:layout_width="27dp"
+        android:layout_height="18dp"
+        android:text="My Posts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_parent_email" />
+
+    <Button
+        android:id="@+id/child_posts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="myPosts"
+        android:text="My Posts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_profile_child" />
+
+    <Button
+        android:id="@+id/add_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AddPost"
+        android:onClick="addPost"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_posts" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

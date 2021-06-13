@@ -1,8 +1,5 @@
 package com.example.childandroid;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +16,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,7 +52,7 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
                 .build();
 
         final Handler handler = new Handler();
-        recyclerView = (RecyclerView) findViewById(R.id.rec_id_child);
+        recyclerView = (RecyclerView) findViewById(R.id.all_posts_child);
 
                 System.out.println("myHandler: here!"); // Do your work here
                 httpClient.newCall(request).enqueue(new Callback() {
