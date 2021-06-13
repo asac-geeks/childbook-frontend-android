@@ -5,7 +5,8 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "com.example.childandroid"
         minSdkVersion 26
@@ -66,5 +67,7 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.cedarsoftware:json-io:4.10.1'
     compile 'org.json:json:20141113'
-
+    implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.0.0-RC1'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 }
