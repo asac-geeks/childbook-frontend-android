@@ -37,6 +37,7 @@ public class MyPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
+        recyclerView =findViewById(R.id.my_posts_child);
         String url = "http://10.0.2.2:4040/myposts";
 
 
