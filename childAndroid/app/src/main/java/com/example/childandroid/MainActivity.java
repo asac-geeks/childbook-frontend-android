@@ -27,12 +27,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(gameDetail);
         });
 
+        findViewById(R.id.parent_account).setOnClickListener(v ->{
+            Intent parentIntent = new Intent(this, ParentActivity.class);
+            startActivity(parentIntent);
+        });
+
+
     }
 
     public void goToBoard(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, DrawBoardActivity.class);
-//        startActivity(intent);
+        startActivity(intent);
     }
 
     public void goToChat(View view) {
@@ -41,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+      public void goSignUp(View view) {
+        // Do something in response to button click
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
+    }
     public void goToLogin(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, login.class);
