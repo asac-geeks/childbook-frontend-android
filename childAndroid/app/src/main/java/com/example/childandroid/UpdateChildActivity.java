@@ -3,6 +3,8 @@ package com.example.childandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -38,6 +40,7 @@ public class UpdateChildActivity extends AppCompatActivity {
     }
 
     public void updateChildButton(View view){
+        Context context = this;
         EditText userName=findViewById(R.id.update_userName_child);
         String username=userName.getText().toString();
 
@@ -46,36 +49,7 @@ public class UpdateChildActivity extends AppCompatActivity {
 
         EditText parentEmail=findViewById(R.id.update_email_child);
         String parentemail=parentEmail.getText().toString();
-        TextView dateOfBirth=findViewById(R.id.update_dateOfBirth);
-        dateOfBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar=Calendar.getInstance();
-                int year=calendar.get(Calendar.YEAR);
-                int month=calendar.get(Calendar.MONTH);
-                int day=calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog=new DatePickerDialog(UpdateChildActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDataSetListner,year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-        mDataSetListner=new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                month=month+1;
-
-                Birthdate=year+"-"+month+"-"+dayOfMonth;
-                if(month<10){
-                    Birthdate=year+"-"+"0"+month+"-"+dayOfMonth;
-
-                }
-                if(dayOfMonth<10){
-                    Birthdate=year+"-"+"0"+month+"-"+"0"+dayOfMonth;
-                }
-
-            }
-        };
 
         HttpLoggingInterceptor loggingInterceptor=new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -83,7 +57,7 @@ public class UpdateChildActivity extends AppCompatActivity {
         OkHttpClient client=new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
-        String json = "{\"username\":\""+username+"\",\"password\":\""+password+"\",\"parentEmail\":\""+parentemail+"\",\"dateOfBirth\":\""+Birthdate+"\"}";
+        String json = "{\"userName\":\""+username+"\",\"password\":\""+password+"\",\"parentEmail\":\""+parentemail+"\"}";
         RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json"));
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = "Bearer "+preferences.getString("token","");
@@ -106,7 +80,10 @@ public class UpdateChildActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     String myResponse=response.body().string();
                     response.code();
-                    response.isSuccessful();             }
+                    response.isSuccessful();
+                    Intent parentPageActivityIntent = new Intent(context, ChildSignInActivity.class);
+                    startActivity(parentPageActivityIntent);
+                }
             }
         });
     }

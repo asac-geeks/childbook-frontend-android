@@ -75,7 +75,7 @@ public class UpdateParentAccountActivity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         Gson gson = new Gson();
                         System.out.println("isSuccessfulUpdate");
-                        Intent parentPageActivityIntent = new Intent(context, ParentActivity.class);
+                        Intent parentPageActivityIntent = new Intent(context, ParentSignInActivity.class);
                         startActivity(parentPageActivityIntent);
                     }
                 }
