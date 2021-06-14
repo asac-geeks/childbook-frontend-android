@@ -175,4 +175,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+
+ <Button
+     android:id="@+id/child_page"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:onClick="goChildPage"
+     android:text="Child Page"
+     app:layout_constraintBottom_toTopOf="@+id/imageView3"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/signup" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,8 @@
         tools:layout_editor_absoluteX="44dp">
 
         <TextView
-            android:id="@+id/com_body"
+
+            android:id="@+id/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

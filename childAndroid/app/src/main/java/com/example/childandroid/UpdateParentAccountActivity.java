@@ -46,11 +46,9 @@ public class UpdateParentAccountActivity extends AppCompatActivity {
         if(!username.getText().toString().equals("") && !email.getText().toString().equals("") && !password.getText().toString().equals("")){
             System.out.println("updateParent");
             String url = "http://10.0.2.2:4040/updateparent";
-            String json =  "{\r\n" +
-                    " \"parentEmail\" : \"areej\",\r\n" +
-                    " \"parentPassword\" : \"123456\",\r\n" +
-                    " \"userName\" : \"areej.obaid@yahoo.com\"\r\n" +
-                    "}";
+
+            String json = "{\"parentEmail\":\""+email.getText().toString()+"\",\"parentPassword\":\""+password.getText().toString()+"\",\"parentEmail\":\""+email.getText().toString()+"\"}";
+
             RequestBody body = RequestBody.create(JSON, json);
 
 //            RequestBody formBody = new FormBody.Builder()
