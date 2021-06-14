@@ -2,6 +2,7 @@ package com.example.childandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,12 +34,12 @@ public class ChildSignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_child_sign_in);
 
         TextView childUsername = findViewById(R.id.loginChildUserNameFeild);
-        TextView childPassowrd = findViewById(R.id.loginChildPasswordFeild);
+        TextView childPassword = findViewById(R.id.loginChildPasswordFeild);
         Button childLoginButton = findViewById(R.id.childLoginButton);
 
         childLoginButton.setOnClickListener(v->{
             String username = childUsername.getText().toString();
-            String password = childPassowrd.getText().toString();
+            String password = childPassword.getText().toString();
  // ------------------------ HTTP client start---------------------------------- //
             // OkHttpClient client = new OkHttpClient();
             OkHttpClient client = new OkHttpClient().newBuilder()
@@ -61,7 +62,7 @@ public class ChildSignInActivity extends AppCompatActivity {
                     .url(url)
                     .post(body)
                     .build();
-
+            Context context = this;
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -76,7 +77,12 @@ public class ChildSignInActivity extends AppCompatActivity {
                             public void run() {
                                 if(response.code() == 200){
                                     System.out.println("work fine");
-                                    String myResponse=response.body().string();
+                                    String myResponse= null;
+                                    try {
+                                        myResponse = response.body().string();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                     response.code();
                                     response.isSuccessful();
                                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -85,7 +91,7 @@ public class ChildSignInActivity extends AppCompatActivity {
                                     System.out.println(myResponse);
                                     editor.putString("token",myResponse);
                                     editor.apply();
-                                    Intent verifiedUser=new Intent(ParentVerification.this,ChildActivity.class);
+                                    Intent verifiedUser=new Intent(ChildSignInActivity.this,ChildActivity.class);
                                     startActivity(verifiedUser);
                                 }else{
                                     Log.d("response body:", "code: "+ response.toString());

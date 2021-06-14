@@ -42,7 +42,6 @@
         <activity android:name=".SignUp" />
         <activity android:name=".ChildActivity" />
         <activity android:name=".ParentActivity" />
-        <activity android:name=".modules.login" />
         <activity android:name=".GameDetailsActivity" />
         <activity android:name=".GamesPageActivity" />
         <activity android:name=".feedsActivity"></activity>
