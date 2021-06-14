@@ -35,8 +35,9 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
         <activity android:name=".ParentVerification"></activity>
-        activity android:name=".ChildSignInActivity"></activity>
+        <activity android:name=".ChildSignInActivity"></activity>
 
         <activity android:name=".SignUp" />
         <activity android:name=".ChildActivity" />
@@ -44,13 +45,13 @@
         <activity android:name=".modules.login" />
         <activity android:name=".GameDetailsActivity" />
         <activity android:name=".GamesPageActivity" />
-        <activity android:name=".FeedPageActivity" />
         <activity android:name=".feedsActivity"></activity>
         <activity android:name=".DrawBoardActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".AddUserActivity" />
-        <activity android:name=".MainActivity">
         <activity android:name=".ParentSignInActivity" />
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
