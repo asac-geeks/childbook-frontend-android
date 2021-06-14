@@ -37,6 +37,8 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
+        activity android:name=".ChildSignInActivity"></activity>
+
         <activity android:name=".SignUp" />
         <activity android:name=".ChildActivity" />
         <activity android:name=".ParentActivity" />
@@ -49,6 +51,7 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".AddUserActivity" />
         <activity android:name=".MainActivity">
+        <activity android:name=".ParentSignInActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
