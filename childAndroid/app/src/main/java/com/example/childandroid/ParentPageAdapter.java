@@ -18,6 +18,7 @@ public class ParentPageAdapter extends RecyclerView.Adapter<ParentPageAdapter.Vi
         TextView childName;
         public ViewHolder (View itemView){
             super(itemView);
+
             childName = itemView.findViewById(R.id.child_name);
         }
     }

@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class ParentTemporaryShareAdapter extends RecyclerView.Adapter<ParentTemp
         TextView body;
         public ViewHolder (View itemView){
             super(itemView);
+
             body = itemView.findViewById(R.id.body);
         }
     }
