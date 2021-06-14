@@ -1,6 +1,13 @@
 package com.example.childandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -14,6 +21,10 @@ import com.example.childandroid.modules.login;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
 //        mSocket = instance.getSocketInstance();
 
          findViewById(R.id.feeds_button).setOnClickListener(v ->{
+
               Intent feedPageActivityIntent = new Intent(this, GamesPageActivity.class);
               startActivity(feedPageActivityIntent);
          });
 
         findViewById(R.id.mainGameButton).setOnClickListener(v ->{
+
             Intent gameDetail = new Intent(this, GameDetailsActivity.class);
             startActivity(gameDetail);
         });
@@ -43,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             Intent parentIntent = new Intent(this, ParentActivity.class);
             startActivity(parentIntent);
         });
+
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},2);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -91,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, login.class);
         startActivity(intent);
     }
+
 
 
 

@@ -9,7 +9,8 @@ android {
     aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "com.example.childandroid"
-        minSdkVersion 26
+        minSdkVersion 23
+
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -41,10 +42,14 @@ dependencies {
     implementation group: 'org.webjars', name: 'sockjs-client', version: '1.1.1'
     // ok http client dep
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:4.9.0"
+
     // Gson
     implementation 'com.google.code.gson:gson:2.8.7'
     // view images
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation 'com.github.nkzawa:socket.io-client:0.3.0'
@@ -72,6 +77,7 @@ dependencies {
     implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.0.0-RC1'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     implementation 'com.google.android.gms:play-services-location:18.0.0'
         // ok http client dep
     implementation("com.squareup.okhttp3:okhttp:4.9.0")

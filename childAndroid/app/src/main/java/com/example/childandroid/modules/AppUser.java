@@ -229,5 +229,4 @@ public class AppUser {
 		this.temporaryShares = temporaryShares;
 	}
 
-
 }

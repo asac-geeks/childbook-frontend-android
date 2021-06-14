@@ -20,6 +20,7 @@
         tools:layout_editor_absoluteX="44dp">
 
         <TextView
+
             android:id="@+id/child_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
