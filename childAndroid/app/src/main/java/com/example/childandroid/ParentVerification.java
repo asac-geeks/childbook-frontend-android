@@ -2,12 +2,16 @@ package com.example.childandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,22 +33,23 @@ public class ParentVerification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_verification);
         Button verification=findViewById(R.id.Verify);
+        Context context = this;
         verification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-       String parentEmail=findViewById(R.id.ParentEmailVeri).toString();
-       String verificationNum=findViewById(R.id.SerialNumber).toString();
+                TextView parentEmail=findViewById(R.id.ParentEmailVeri);
+                TextView verificationNum=findViewById(R.id.SerialNumber);
                 HttpLoggingInterceptor loggingInterceptor=new HttpLoggingInterceptor();
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
                 OkHttpClient client=new OkHttpClient.Builder()
                         .addInterceptor(loggingInterceptor)
                         .build();
-                String json = "{\"parentEmail\":\""+parentEmail+"\",\"serialNumber\":\""+verificationNum+"\"}";
+                String json = "{\"parentEmail\":\""+parentEmail.getText().toString()+"\",\"serialNumber\":\""+verificationNum.getText().toString()+"\"}";
                 RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json"));
 
                 Request request = new Request.Builder()
-                        .url("http://192.168.1.82:8090/parentverification")
+                        .url("http://10.0.2.2:4040/parentverification")
                         .post(requestBody)
                         .build();
                 client.newCall(request).enqueue(new Callback() {
@@ -59,7 +64,13 @@ public class ParentVerification extends AppCompatActivity {
                             String myResponse=response.body().string();
                             response.code();
                             response.isSuccessful();
-                            Intent verifiedUser=new Intent(ParentVerification.this,MainActivity.class);
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            System.out.println("token1");
+                            System.out.println(myResponse);
+                            editor.putString("token",myResponse);
+                            editor.apply();
+                            Intent verifiedUser=new Intent(ParentVerification.this,ChildActivity.class);
                             startActivity(verifiedUser);
                         }
                     }

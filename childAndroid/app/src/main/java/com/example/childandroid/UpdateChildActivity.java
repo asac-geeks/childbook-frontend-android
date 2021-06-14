@@ -3,9 +3,11 @@ package com.example.childandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,7 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-public class updateChildActivity extends AppCompatActivity {
+public class UpdateChildActivity extends AppCompatActivity {
     String Birthdate="";
     private DatePickerDialog.OnDateSetListener mDataSetListner;
 
@@ -52,7 +54,7 @@ public class updateChildActivity extends AppCompatActivity {
                 int year=calendar.get(Calendar.YEAR);
                 int month=calendar.get(Calendar.MONTH);
                 int day=calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog=new DatePickerDialog(updateChildActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDataSetListner,year,month,day);
+                DatePickerDialog dialog=new DatePickerDialog(UpdateChildActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDataSetListner,year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -83,10 +85,11 @@ public class updateChildActivity extends AppCompatActivity {
                 .build();
         String json = "{\"username\":\""+username+"\",\"password\":\""+password+"\",\"parentEmail\":\""+parentemail+"\",\"dateOfBirth\":\""+Birthdate+"\"}";
         RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json"));
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:4040/profile")
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                .header("Authorization", token)
                 .put(requestBody)
                 .build();
 

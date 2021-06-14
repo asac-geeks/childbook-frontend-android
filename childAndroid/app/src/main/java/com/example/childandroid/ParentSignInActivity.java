@@ -3,7 +3,11 @@ package com.example.childandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentProviderOperation;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +33,7 @@ import okhttp3.Response;
 
 public class ParentSignInActivity extends AppCompatActivity {
 
-    String url = "https://as-childbook.herokuapp.com/login";
+    String url = "http://10.0.2.2:4040/loginAsParent";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +44,7 @@ public class ParentSignInActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.parentLoginButton);
 
         loginButton.setOnClickListener(v->{
-            String parentEmail = email.getText().toString();
+            String userName = email.getText().toString();
             String parentPassword = passowrd.getText().toString();
 // ------------------------ HTTP client start---------------------------------- //
 //            OkHttpClient client = new OkHttpClient();
@@ -52,8 +56,8 @@ public class ParentSignInActivity extends AppCompatActivity {
 
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("parentEmail", parentEmail);
-                jsonObject.put("paswword", parentPassword);
+                jsonObject.put("userName", userName);
+                jsonObject.put("password", parentPassword);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -64,7 +68,7 @@ public class ParentSignInActivity extends AppCompatActivity {
                     .url(url)
                     .post(body)
                     .build();
-
+            Context context = this;
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -77,6 +81,20 @@ public class ParentSignInActivity extends AppCompatActivity {
                               @Override
                               public void run() {
                                   if(response.code() == 200){
+                                      String myResponse= null;
+                                      try {
+                                          myResponse = response.body().string();
+                                      } catch (IOException e) {
+                                          e.printStackTrace();
+                                      }
+                                      SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                                      SharedPreferences.Editor editor = sharedPreferences.edit();
+                                      System.out.println("token1");
+                                      System.out.println(myResponse);
+                                      editor.putString("token",myResponse);
+                                      editor.apply();
+                                      Intent verifiedUser=new Intent(ParentSignInActivity.this,ParentActivity.class);
+                                      startActivity(verifiedUser);
                                       System.out.println("work fine");
                                   }else{
                                       Log.d("response body:", "code: "+ response.toString());

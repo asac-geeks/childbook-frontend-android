@@ -3,8 +3,10 @@ package com.example.childandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import com.example.childandroid.modules.AppUser;
 import com.example.childandroid.modules.Parent;
@@ -48,9 +50,11 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_parent);
         String url = "http://10.0.2.2:4040/parentProfile";
         OkHttpClient httpClient = new OkHttpClient();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                .header("Authorization", token)
                 .build();
 
         final Handler handler = new Handler();
@@ -119,13 +123,16 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         map = googleMap;
 
         for (AppUser child : children){
-            String[] location = child.getLocation().split(",");
-            LatLng latLng = new LatLng(Float.parseFloat(location[0]),Float.parseFloat(location[0]));
+            if(child.getLocation() != null){
+                String[] location = child.getLocation().split(",");
+                LatLng latLng = new LatLng(Float.parseFloat(location[0]),Float.parseFloat(location[0]));
 
-            map.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title("Marker"));
-            map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                map.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Marker"));
+                map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
+
         }
 
     }

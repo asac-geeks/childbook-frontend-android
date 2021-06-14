@@ -36,15 +36,15 @@ public class AppUser {
 
 	private String location;
 
-	private LocalDate dateOfBirth;
-
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+//	private LocalDate dateOfBirth;
+//
+//	public LocalDate getDateOfBirth() {
+//		return dateOfBirth;
+//	}
+//
+//	public void setDateOfBirth(LocalDate dateOfBirth) {
+//		this.dateOfBirth = dateOfBirth;
+//	}
 
 	public AppUser(String userName, String password, String email, Parent parent ,String location) {
 		this.userName = userName;

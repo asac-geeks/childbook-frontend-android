@@ -24,7 +24,7 @@
         <activity android:name=".AddPost_Activity" />
         <activity android:name=".MyPostActivity" />
         <activity android:name=".AllPostsActivity" />
-        <activity android:name=".updateChildActivity" />
+        <activity android:name=".UpdateChildActivity" />
         <activity android:name=".UpdateParentAccountActivity" />
         <activity android:name=".NotificationsActivity" />
 

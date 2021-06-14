@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import com.example.childandroid.modules.AppUser;
@@ -40,11 +42,12 @@ public class MyPostActivity extends AppCompatActivity {
         recyclerView =findViewById(R.id.my_posts_child);
         String url = "http://10.0.2.2:4040/myposts";
 
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                .header("Authorization", token)
                 .build();
 
         httpClient.newCall(request).enqueue(new Callback() {

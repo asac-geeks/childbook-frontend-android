@@ -2,7 +2,10 @@ package com.example.childandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +26,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ChildSignInActivity extends AppCompatActivity {
-    String url = "https://as-childbook.herokuapp.com/login";
+    String url = "http://10.0.2.2:4040/authenticate";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +50,7 @@ public class ChildSignInActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("userName", username);
-                jsonObject.put("paswword", password);
+                jsonObject.put("password", password);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -73,6 +76,17 @@ public class ChildSignInActivity extends AppCompatActivity {
                             public void run() {
                                 if(response.code() == 200){
                                     System.out.println("work fine");
+                                    String myResponse=response.body().string();
+                                    response.code();
+                                    response.isSuccessful();
+                                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    System.out.println("token1");
+                                    System.out.println(myResponse);
+                                    editor.putString("token",myResponse);
+                                    editor.apply();
+                                    Intent verifiedUser=new Intent(ParentVerification.this,ChildActivity.class);
+                                    startActivity(verifiedUser);
                                 }else{
                                     Log.d("response body:", "code: "+ response.toString());
                                 }

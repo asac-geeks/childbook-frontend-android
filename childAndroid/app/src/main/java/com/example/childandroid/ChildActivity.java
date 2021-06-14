@@ -3,24 +3,20 @@ package com.example.childandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.childandroid.modules.AppUser;
-import com.example.childandroid.modules.ParentResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 
@@ -28,8 +24,6 @@ import com.google.gson.Gson;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,26 +35,27 @@ import okhttp3.Response;
 
 public class ChildActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
+
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private AppUser childData = new AppUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
-
-
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},2);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         String url = "http://10.0.2.2:4040/profile";
-
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
+        System.out.println("token");
+        System.out.println(token);
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                .header("Authorization", token)
                 .build();
 
         httpClient.newCall(request).enqueue(new Callback() {
@@ -96,8 +91,8 @@ public class ChildActivity extends AppCompatActivity {
             TextView username = findViewById(R.id.child_username);
             username.setText(childData.getUserName());
 
-            TextView date = findViewById(R.id.child_date);
-            date.setText(childData.getDateOfBirth().toString());
+//            TextView date = findViewById(R.id.child_date);
+//            date.setText(childData.getDateOfBirth().toString());
 
         }catch(InterruptedException e){
             e.printStackTrace();
@@ -121,7 +116,7 @@ public class ChildActivity extends AppCompatActivity {
                             Request request = new Request.Builder()
                                     .url(url)
                                     .put(body)
-                                    .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                                    .header("Authorization", token)
                                     .build();
                             httpClient.newCall(request).enqueue(new Callback() {
                                 @Override
@@ -157,7 +152,7 @@ public class ChildActivity extends AppCompatActivity {
     }
     public void updateChild(View view) {
         // Do something in response to button click
-        Intent intent = new Intent(this, DrawBoardActivity.class);
+        Intent intent = new Intent(this, UpdateChildActivity.class);
         startActivity(intent);
     }
 }

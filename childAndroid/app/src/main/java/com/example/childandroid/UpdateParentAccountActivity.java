@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,20 +49,19 @@ public class UpdateParentAccountActivity extends AppCompatActivity {
             System.out.println("updateParent");
             String url = "http://10.0.2.2:4040/updateparent";
 
-            String json = "{\"parentEmail\":\""+email.getText().toString()+"\",\"parentPassword\":\""+password.getText().toString()+"\",\"parentEmail\":\""+email.getText().toString()+"\"}";
+            String json = "{\"userName\":\""+username.getText().toString()+"\",\"parentPassword\":\""+password.getText().toString()+"\",\"parentEmail\":\""+email.getText().toString()+"\"}";
 
-            RequestBody body = RequestBody.create(JSON, json);
 
-//            RequestBody formBody = new FormBody.Builder()
-//                    .add("parentEmail", "test")
-//                    .add("parentPassword", "test")
-//                    .add("userName", "test")
-//                    .build();
+            RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json"));
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String token = "Bearer "+preferences.getString("token","");
+            System.out.println("Parent token");
+            System.out.println(token);
             OkHttpClient httpClient = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
-                    .put(body)
-                    .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                    .put(requestBody)
+                    .header("Authorization", token)
                     .build();
             httpClient.newCall(request).enqueue(new Callback() {
                 @Override

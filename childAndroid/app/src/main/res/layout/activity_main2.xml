@@ -187,4 +187,14 @@
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toBottomOf="@+id/signup" />
 
+ <Button
+     android:id="@+id/child_account"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Sign In Parent"
+     android:onClick="goToParentSignInPage"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toEndOf="@+id/board_page"
+     app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
