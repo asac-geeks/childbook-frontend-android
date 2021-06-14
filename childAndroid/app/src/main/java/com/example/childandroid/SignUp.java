@@ -114,7 +114,7 @@ findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
         RequestBody requestBody = RequestBody.create(json,MediaType.parse("application/json"));
 
         Request request = new Request.Builder()
-                .url("https://as-childbook.herokuapp.com/signup")
+                .url("http://192.168.1.82:8090/signup")
                 .post(requestBody)
                 .build();
 
@@ -122,7 +122,7 @@ findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println("failed");
-//                e.printStackTrace();
+                e.printStackTrace();
 
             }
 
@@ -131,7 +131,7 @@ findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
              if(response.isSuccessful()){
                     String myResponse=response.body().string();
                     response.code();
-                    response.isSuccessful();
+                 response.isSuccessful();
                  Intent parentverification=new Intent(SignUp.this,ParentVerification.class);
                  startActivity(parentverification);
              }
