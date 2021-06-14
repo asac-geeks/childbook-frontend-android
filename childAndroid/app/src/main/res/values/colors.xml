@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="pink">#724e8c</color>
+    <color name="first">#724e8c</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -9,5 +11,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFEB3B</color>
     <color name="green">#69F436</color>
-    <color name="pink">#F436B5</color>
+    <color name="primary">#ff9051</color>
+    <color name="secondary">#81beff</color>
+    <color name="primarylight">#ffcf64</color>
+    <color name="fontbuttoncolor">#f3f3f4</color>
+    <color name="fontcolorfirst">#0a0a0a</color>
+    <color name="fontcolorsecond">#838383</color>
+    <color name="banafsaji">#724e8c</color>
+    <color name="button">#181724</color>
 </resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameDetailsActivity">
+
+    <TextView
+        android:id="@+id/gameDetailsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Title"
+        app:layout_constraintBottom_toTopOf="@+id/gameDetailsImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45999998" />
+
+    <TextView
+        android:id="@+id/gameDetailsGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genre"
+        app:layout_constraintBottom_toTopOf="@+id/gameDetailsPlatform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameDetailsImage" />
+
+    <ImageView
+        android:id="@+id/gameDetailsImage"
+        android:layout_width="308dp"
+        android:layout_height="165dp"
+        app:layout_constraintBottom_toTopOf="@+id/gameDetailsGenre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameDetailsTitle"
+        app:srcCompat="@android:drawable/screen_background_dark" />
+
+    <TextView
+        android:id="@+id/gameDetailsPlatform"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Platform"
+        app:layout_constraintBottom_toTopOf="@+id/gameDetailsProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameDetailsGenre" />
+
+    <TextView
+        android:id="@+id/gameDetailsProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        app:layout_constraintBottom_toTopOf="@+id/gameDetailsDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameDetailsPlatform" />
+
+    <TextView
+        android:id="@+id/gameDetailsDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameDetailsProfile" />
+</androidx.constraintlayout.widget.ConstraintLayout>
