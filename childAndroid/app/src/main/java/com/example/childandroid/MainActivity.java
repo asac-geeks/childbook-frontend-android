@@ -3,28 +3,17 @@ package com.example.childandroid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
-import android.view.View;
 
-import com.example.childandroid.modules.login;
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
-
-import org.json.JSONObject;
-
-import java.net.URISyntaxException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -107,17 +96,29 @@ public class MainActivity extends AppCompatActivity {
     }
     public void goToLogin(View view) {
         // Do something in response to button click
-        Intent intent = new Intent(this, login.class);
+        Intent intent = new Intent(this, ChildSignInActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToParentSignInPage(View view){
+        Intent intent = new Intent(this, ParentSignInActivity.class);
+        startActivity(intent);
+    }
+
+    public void addTask(View view){
+        Intent intent = new Intent(this, AddPost_Activity.class);
         startActivity(intent);
     }
 
 
-
-
-
     public void goChildPage(View view){
-        Intent intent = new Intent(this, ChildActivity.class);
-        startActivity(intent);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcmVlaiIsImV4cCI6MTYyMzcyMTI3NiwiaWF0IjoxNjIzNjg1Mjc2fQ._ZhWmniMKiBG9do10orMuMDbjFcrUrMJ-lSxVW61Q_g");
+        editor.apply();
+        Intent childUser=new Intent(MainActivity.this,ChildActivity.class);
+        startActivity(childUser);
+
     }
 
 }

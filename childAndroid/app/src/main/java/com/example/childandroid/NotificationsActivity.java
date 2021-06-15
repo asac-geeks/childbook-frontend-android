@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import com.example.childandroid.modules.ParentResponse;
 import com.google.gson.Gson;
@@ -34,9 +36,11 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         String url = "http://10.0.2.2:4040/parentProfile";
         OkHttpClient httpClient = new OkHttpClient();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                .header("Authorization", token)
                 .build();
 
         RecyclerView recyclerViewPost = findViewById(R.id.posts);
