@@ -20,12 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildAndroid"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ChildTemporary"></activity>
         <activity android:name=".FindUser"></activity>
         <activity android:name=".PostDelailsActivity" />
         <activity android:name=".AddPost_Activity" />
         <activity android:name=".MyPostActivity" />
         <activity android:name=".AllPostsActivity" />
-        <activity android:name=".updateChildActivity" />
+        <activity android:name=".UpdateChildActivity" />
         <activity android:name=".UpdateParentAccountActivity" />
         <activity android:name=".NotificationsActivity" />
 
@@ -42,7 +43,6 @@
         <activity android:name=".SignUp" />
         <activity android:name=".ChildActivity" />
         <activity android:name=".ParentActivity" />
-        <activity android:name=".modules.login" />
         <activity android:name=".GameDetailsActivity" />
         <activity android:name=".GamesPageActivity" />
         <activity android:name=".feedsActivity" />

@@ -114,7 +114,7 @@ findViewById(R.id.signUpButton).setOnClickListener(new View.OnClickListener() {
         RequestBody requestBody = RequestBody.create(json,MediaType.parse("application/json"));
 
         Request request = new Request.Builder()
-                .url("http://192.168.1.82:8090/signup")
+                .url("http://10.0.2.2:4040/signup")
                 .post(requestBody)
                 .build();
 

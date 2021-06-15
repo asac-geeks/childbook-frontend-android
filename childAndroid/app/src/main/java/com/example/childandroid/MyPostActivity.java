@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import com.example.childandroid.modules.AppUser;
 import com.example.childandroid.modules.GamesApi;
+import com.example.childandroid.modules.MyPostsResponse;
 import com.example.childandroid.modules.ParentResponse;
 import com.example.childandroid.modules.Post;
+import com.example.childandroid.modules.Share;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,20 +35,30 @@ import okhttp3.Response;
 
 public class MyPostActivity extends AppCompatActivity {
     private ArrayList posts = new ArrayList();
-    private RecyclerView recyclerView;
+    private ArrayList shares = new ArrayList();
+
+    private RecyclerView recyclerViewPost;
+    private RecyclerView recyclerViewShare;
+
+
     private PostsAdapter postsAdapter;
+    private ShareAdapter sharesAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
-        recyclerView =findViewById(R.id.my_posts_child);
+        recyclerViewPost = findViewById(R.id.my_posts_child);
+        recyclerViewShare =findViewById(R.id.my_shares_child);
+
         String url = "http://10.0.2.2:4040/myposts";
 
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyTmFtZTEgUGFyZW50IiwiZXhwIjoxNjIzNTY5Mjg3LCJpYXQiOjE2MjM1MzMyODd9.rE2xIyb0UBpOiaBc16CGJREu4i01R1uPGEXwFzCzyCI")
+                .header("Authorization", token)
                 .build();
 
         httpClient.newCall(request).enqueue(new Callback() {
@@ -60,16 +74,21 @@ public class MyPostActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     String body = response.body().string();
                     System.out.println("isSuccessful Mp Posts");
-                    Type listType = new TypeToken<Set<Post>>(){}.getType();
-                    posts.addAll(new Gson().fromJson(body, listType));
+                    MyPostsResponse myPostsResponse = gson.fromJson(body,  MyPostsResponse.class);
+                    posts.addAll(myPostsResponse.getPosts());
+                    shares.addAll(myPostsResponse.getShares());
                 }
             }
         });
         try{
             Thread.sleep(5000);
             postsAdapter = new PostsAdapter(this, posts);
-            recyclerView.setAdapter(postsAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerViewPost.setAdapter(postsAdapter);
+            recyclerViewPost.setLayoutManager(new LinearLayoutManager(this));
+
+            sharesAdapter = new ShareAdapter(this, shares);
+            recyclerViewShare.setAdapter(sharesAdapter);
+            recyclerViewShare.setLayoutManager(new LinearLayoutManager(this));
         }catch(InterruptedException e){
             e.printStackTrace();
         }
