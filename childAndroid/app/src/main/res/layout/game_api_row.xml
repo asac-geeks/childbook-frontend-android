@@ -13,10 +13,10 @@
         android:text="Game Title"
         app:layout_constraintBottom_toTopOf="@+id/gameGenreListViewItem"
         app:layout_constraintEnd_toStartOf="@+id/gameViewButtonListViewItem"
-        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameThumbnailListViewItem"
-        app:layout_constraintVertical_bias="0.317" />
+        app:layout_constraintVertical_bias="0.523" />
 
     <ImageView
         android:id="@+id/gameThumbnailListViewItem"
@@ -34,14 +34,16 @@
         android:id="@+id/gameViewButtonListViewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="304dp"
+        android:layout_marginEnd="18dp"
         android:layout_marginBottom="356dp"
+        android:backgroundTint="@color/primarylight"
         android:text="View"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameThumbnailListViewItem" />
+        app:layout_constraintTop_toBottomOf="@+id/gameThumbnailListViewItem"
+        app:layout_constraintVertical_bias="0.518" />
 
     <TextView
         android:id="@+id/gameGenreListViewItem"
@@ -51,10 +53,10 @@
         android:text="Genre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameThumbnailListViewItem"
-        app:layout_constraintVertical_bias="0.005" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <TextView
         android:id="@+id/gameDiscriptionListViewItem"
@@ -63,8 +65,8 @@
         android:text="Discription"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameThumbnailListViewItem"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.226" />
 </androidx.constraintlayout.widget.ConstraintLayout>

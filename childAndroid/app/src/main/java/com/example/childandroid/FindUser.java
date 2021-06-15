@@ -24,15 +24,15 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class FindUser extends AppCompatActivity {
-
+    TextView userInfo;
+    Button userInfoButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_user);
         final Handler handler = new Handler();
         EditText findUser= findViewById(R.id.findUser);
-        TextView userInfo=findViewById(R.id.userInfo);
-        Button userInfoButton=findViewById(R.id.findUserButton);
+
 
       findViewById(R.id.findUserButton) .setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,16 +57,18 @@ public class FindUser extends AppCompatActivity {
                        if(response.isSuccessful()) {
 
                            Gson gson=new Gson();
-                           System.out.println(response.body());
                            response.code();
                            response.isSuccessful();
-                           String body=response.body().string();
+                           System.out.println(response.body().string());
+//                            AppUser appUser = gson.fromJson(response.body().string(),AppUser.class);
 
-                            AppUser appUser = gson.fromJson(body, AppUser.class);
-//                            userInfo.setVisibility(View.VISIBLE);
-//                            userInfoButton.setVisibility(View.VISIBLE);
-//                            userInfo.setText();
-
+                           runOnUiThread(new Runnable() {
+                               @Override
+                               public void run() {
+                                   findViewById(R.id.userInfo).setVisibility(View.VISIBLE);
+                                   findViewById(R.id.userFollow).setVisibility(View.VISIBLE);
+                               }
+                           });
                        }else {
                            System.out.println("empty");
                        }

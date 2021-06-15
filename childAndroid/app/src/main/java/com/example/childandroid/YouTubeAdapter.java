@@ -46,9 +46,9 @@ public class YouTubeAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.you_tube_row, null);
 
 
-        TextView title = (TextView) view.findViewById(R.id.videoTitleRow);
-        String titleValue = videos.get(0).getItems().get(position).getSnippet().getTitle();
-        title.setText(titleValue);
+//        TextView title = (TextView) view.findViewById(R.id.videoTitleRow);
+//        String titleValue = videos.get(0).getItems().get(position).getSnippet().getTitle();
+//        title.setText(titleValue);
 
  // ----------------------- video call -------------------------------------- //
         MediaController mediaController = new MediaController(parent.getContext());
