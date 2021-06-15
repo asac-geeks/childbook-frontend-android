@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        ======================================================================
 
 
-
 //        SocketInstance instance = (SocketInstance)getApplication();
 //        ops.query = "Bearer " + "authToken";
 //        mSocket = instance.getSocketInstance();
@@ -86,16 +85,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            Intent parentIntent = new Intent(this, ParentActivity.class);
 //            startActivity(parentIntent);
 //        });
- findViewById(R.id.logIn).setOnClickListener(new View.OnClickListener() {
-     @Override
-     public void onClick(View v) {
-         goToLogin(v);
-     }
- });
+// findViewById(R.id.logIn).setOnClickListener(new View.OnClickListener() {
+//     @Override
+//     public void onClick(View v) {
+//         goToLogin(v);
+//     }
+// });
+//
+//        findViewById(R.id.findFriends).setOnClickListener(v -> {
+//            Intent parentIntent = new Intent(this, FindUser.class);
+//            startActivity(parentIntent);
+//        });
 
-        findViewById(R.id.findFriends).setOnClickListener(v -> {
-            Intent parentIntent = new Intent(this, FindUser.class);
-            startActivity(parentIntent);
+        findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChildSignInActivity.class);
+                startActivity(intent);
+            }
         });
 
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
