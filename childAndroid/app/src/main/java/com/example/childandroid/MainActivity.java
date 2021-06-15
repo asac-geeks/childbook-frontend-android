@@ -50,10 +50,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 //        =======================================Navigation Drawer Menu
 
-        // Hide not needed items from navBar
+// ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
-        menu.findItem(R.id.nav_logout).setVisible(false);
-        menu.findItem(R.id.nav_profile).setVisible(false);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
+        if (token.equals("")) {
+            menu.findItem(R.id.nav_child_logout).setVisible(false);
+            menu.findItem(R.id.nav_parent_logout).setVisible(false);
+            menu.findItem(R.id.nav_child_profile).setVisible(false);
+            menu.findItem(R.id.nav_parent_profile).setVisible(false);
+            menu.findItem(R.id.nav_parent_login).setVisible(true);
+            menu.findItem(R.id.nav_child_login).setVisible(true);
+        } else {
+            menu.findItem(R.id.nav_child_logout).setVisible(true);
+            menu.findItem(R.id.nav_parent_logout).setVisible(true);
+            menu.findItem(R.id.nav_child_profile).setVisible(true);
+            menu.findItem(R.id.nav_parent_profile).setVisible(true);
+            menu.findItem(R.id.nav_parent_login).setVisible(false);
+            menu.findItem(R.id.nav_child_login).setVisible(false);
+        }
+
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -188,15 +204,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+        Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
                 break;
             case R.id.nav_youtube:
-                Intent intent = new Intent(MainActivity.this, feedsActivity.class);
-                startActivity(intent);
+                intent = new Intent(MainActivity.this, feedsActivity.class);
+                break;
+            case R.id.nav_our_games:
+                intent = new Intent(MainActivity.this, GamesPageActivity.class);
+                break;
+            case R.id.nav_whiteboard:
+                intent = new Intent(MainActivity.this, DrawBoardActivity.class);
+                break;
+            case R.id.nav_child_login:
+                intent = new Intent(MainActivity.this, ChildSignInActivity.class);
+                break;
+            case R.id.nav_child_profile:
+                intent = new Intent(MainActivity.this, ChildActivity.class);
+                break;
+            case R.id.nav_child_logout:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("token");
+                editor.commit();
+                break;
+            case R.id.nav_parent_login:
+                intent = new Intent(MainActivity.this, ParentSignInActivity.class);
+                break;
+            case R.id.nav_parent_profile:
+                intent = new Intent(MainActivity.this, ParentActivity.class);
+                break;
+            case R.id.nav_parent_logout:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.remove("token");
+                editor.commit();
                 break;
         }
+        startActivity(intent);
         return true;
     }
 //    ====================================================================
 }
+
+
+//  nav_home
+//  nav_youtube
+// nav_our_games
+// nav_whiteboard
+// nav_child_login
+// nav_child_profile
+// nav_child_logout
+// nav_parent_login
+// nav_parent_profile
+// nav_parent_logout
