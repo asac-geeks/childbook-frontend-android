@@ -36,7 +36,7 @@
         android:layout_height="33dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="224dp"
-        android:text="TextView"
+        android:text="user"
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
