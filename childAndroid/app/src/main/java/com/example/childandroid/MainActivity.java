@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-//        =======================================navigation bar
+//        ======================navigation bar======================
+
+
 //        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -46,12 +49,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        =======================================Tool Bar
         setSupportActionBar(toolbar);
 //        =======================================Navigation Drawer Menu
+
+        // Hide not needed items from navBar
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_logout).setVisible(false);
+        menu.findItem(R.id.nav_profile).setVisible(false);
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+//        ======================================================================
+
+
 
 //        SocketInstance instance = (SocketInstance)getApplication();
 //        ops.query = "Bearer " + "authToken";
@@ -173,4 +186,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
+//    ====================================================================
 }
