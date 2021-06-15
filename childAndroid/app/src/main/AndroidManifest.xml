@@ -21,6 +21,7 @@
         android:theme="@style/Theme.ChildAndroid"
         android:usesCleartextTraffic="true">
         <activity android:name=".ChildTemporary"></activity>
+        <activity android:name=".FindUser"></activity>
         <activity android:name=".PostDelailsActivity" />
         <activity android:name=".AddPost_Activity" />
         <activity android:name=".MyPostActivity" />

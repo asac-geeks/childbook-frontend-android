@@ -29,20 +29,25 @@ public class MainActivity extends AppCompatActivity {
 //        ops.query = "Bearer " + "authToken";
 //        mSocket = instance.getSocketInstance();
 
-         findViewById(R.id.feeds_button).setOnClickListener(v ->{
+//         findViewById(R.id.feeds_button).setOnClickListener(v ->{
+//
+//              Intent feedPageActivityIntent = new Intent(this, GamesPageActivity.class);
+//              startActivity(feedPageActivityIntent);
+//         });
+//
+//        findViewById(R.id.mainGameButton).setOnClickListener(v ->{
+//
+//            Intent gameDetail = new Intent(this, GameDetailsActivity.class);
+//            startActivity(gameDetail);
+//        });
+//
+//        findViewById(R.id.parent_account).setOnClickListener(v ->{
+//            Intent parentIntent = new Intent(this, ParentActivity.class);
+//            startActivity(parentIntent);
+//        });
 
-              Intent feedPageActivityIntent = new Intent(this, GamesPageActivity.class);
-              startActivity(feedPageActivityIntent);
-         });
-
-        findViewById(R.id.mainGameButton).setOnClickListener(v ->{
-
-            Intent gameDetail = new Intent(this, GameDetailsActivity.class);
-            startActivity(gameDetail);
-        });
-
-        findViewById(R.id.parent_account).setOnClickListener(v ->{
-            Intent parentIntent = new Intent(this, ParentActivity.class);
+        findViewById(R.id.findFriends).setOnClickListener(v -> {
+            Intent parentIntent = new Intent(this, FindUser.class);
             startActivity(parentIntent);
         });
 
@@ -115,4 +120,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(childUser);
 
     }
+
 }
