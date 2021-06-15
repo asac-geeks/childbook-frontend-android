@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.childandroid.modules.GamesApi;
@@ -33,7 +34,16 @@ public class feedsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feeds);
 
-        String url = "https://as-childbook.herokuapp.com/videos/childrenStories";
+        findViewById(R.id.youtubeSearchButton).setOnClickListener(v -> {
+           EditText youTubeSearch = (EditText) findViewById(R.id.youtubeSearchfeild);
+          String query =  youTubeSearch.getText().toString();
+          queryYouTube(query);
+        });
+    }
+
+    public void queryYouTube(String query){
+//       my query: childrenStories
+        String url = "https://as-childbook.herokuapp.com/videos/"+ query;
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(0, TimeUnit.SECONDS)
                 .readTimeout(0, TimeUnit.SECONDS)
@@ -62,7 +72,6 @@ public class feedsActivity extends AppCompatActivity {
                     public void run() {
                         List<YouTubeItems> youTubeItems = new ArrayList<>();
                         for(YouTubeItems video: youTubeApi.get(0).getItems()){
-//                            Log.d("response structure", "youtube id: "+ video.getId().getVideoId());
                             youTubeItems.add(video);
                         }
                         YouTubeAdapter youTubeAdapter = new YouTubeAdapter(youTubeItems);
@@ -75,5 +84,4 @@ public class feedsActivity extends AppCompatActivity {
 
 
     }
-
 }

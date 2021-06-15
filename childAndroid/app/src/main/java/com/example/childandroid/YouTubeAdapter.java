@@ -15,9 +15,21 @@ import com.bumptech.glide.Glide;
 import com.example.childandroid.modules.youtube.YouTubeApi;
 import com.example.childandroid.modules.youtube.YouTubeItems;
 import com.github.nkzawa.socketio.client.Url;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+
+import android.os.Bundle;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class YouTubeAdapter extends BaseAdapter {
     List<YouTubeItems> videos = new ArrayList<>();
@@ -45,29 +57,39 @@ public class YouTubeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.you_tube_row, null);
-
-        for(YouTubeItems video: videos){
-            Log.d("response structure", "youtube id: "+ video.getId().getVideoId());
-        }
-
-//        TextView title = (TextView) view.findViewById(R.id.videoTitleRow);
-//        String titleValue = videos.get(0).getItems().get(position).getSnippet().getTitle();
-//        title.setText(titleValue);
-
  // ----------------------- video call -------------------------------------- //
         MediaController mediaController = new MediaController(parent.getContext());
-        VideoView video =  (VideoView) view.findViewById(R.id.youTubeVideoRowItem);
-
-        video.setMediaController(mediaController);
-        mediaController.setAnchorView(video);
-
         String id =  videos.get(position).getId().getVideoId();
-//        Uri uri = Uri.parse("https://www.youtube.com/watch?v="+id);
-
-//        video.setVideoURI(uri);
-        video.requestFocus();
-        video.start();
- // ----------------------- video call -------------------------------------- /l
+        Log.d("my id", ":my id: "+ id);
+//......................... youtube player ...........................
+        YouTubeFragCreator player = new YouTubeFragCreator();
+        player.runVideo(id);
+//        .............. end of youtube player .......
         return view;
+    }
+
+    static class YouTubeFragCreator extends YouTubeBaseActivity{
+
+        public void runVideo(String id){
+            // yazan
+//        String api_key = "AIzaSyCl2DUwe_iYExrnevvbsjps2nf2ceTAmo8";
+            // husam
+            String api_key = "AIzaSyAbytVhdgRyfZDstAIgK2Y5qjNH7O55GY4";
+
+            YouTubePlayerView ytPlayer = (YouTubePlayerView)findViewById(R.id.ytPlayer);
+
+            ytPlayer.initialize(api_key, new YouTubePlayer.OnInitializedListener(){
+                @Override
+                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                    youTubePlayer.loadVideo(id);
+                    youTubePlayer.play();
+                }
+
+                @Override
+                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+//                    Toast.makeText(getApplicationContext(), "Video player Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

@@ -39,11 +39,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/youtubeSearch"
+            app:layout_constraintTop_toBottomOf="@+id/youtubeSearchfeild"
             app:layout_constraintVertical_bias="0.734" />
 
         <EditText
-            android:id="@+id/youtubeSearch"
+            android:id="@+id/youtubeSearchfeild"
             android:layout_width="321dp"
             android:layout_height="47dp"
             android:layout_marginStart="100dp"

@@ -55,7 +55,6 @@ public class PostsAdapter  extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
                 context.startActivity(k);
             }
         });
-
     }
 
     @Override
