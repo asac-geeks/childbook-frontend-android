@@ -79,13 +79,16 @@ public class ChildActivity extends AppCompatActivity {
                 }
             }
 
-
         });
         try{
             Thread.sleep(5000);
             System.out.println(childData);
             System.out.println("children");
             TextView email = findViewById(R.id.child_parent_email);
+            System.out.println("childData.getEmail()");
+            System.out.println(childData.getEmail());
+            System.out.println(childData.getUserName());
+
             email.setText(childData.getEmail());
 
             TextView username = findViewById(R.id.child_username);
