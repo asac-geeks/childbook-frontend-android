@@ -20,8 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildAndroid"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChildTemporary"></activity>
-        <activity android:name=".FindUser"></activity>
+        <activity android:name=".MyPostAllCommentsActivity"></activity>
+        <activity android:name=".MyPostAllShareActivity" />
+        <activity android:name=".UpdatePostActivity" />
+        <activity android:name=".TempPostDetailsActivity" />
+        <activity android:name=".CommentDetailActivity" />
+        <activity android:name=".ChildTemporary" />
+        <activity android:name=".FindUser" />
         <activity android:name=".PostDelailsActivity" />
         <activity android:name=".AddPost_Activity" />
         <activity android:name=".MyPostActivity" />
