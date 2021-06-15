@@ -100,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void addTask(View view){
+        Intent intent = new Intent(this, AddPost_Activity.class);
+        startActivity(intent);
+    }
 
 
     public void goChildPage(View view){

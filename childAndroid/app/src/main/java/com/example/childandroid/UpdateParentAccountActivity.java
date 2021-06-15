@@ -73,7 +73,6 @@ public class UpdateParentAccountActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                     if(response.isSuccessful()){
-                        Gson gson = new Gson();
                         System.out.println("isSuccessfulUpdate");
                         Intent parentPageActivityIntent = new Intent(context, ParentSignInActivity.class);
                         startActivity(parentPageActivityIntent);

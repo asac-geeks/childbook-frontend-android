@@ -150,6 +150,10 @@ public class ChildActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddPost_Activity.class);
         startActivity(intent);
     }
+    public void goToTemporaryChild(View view){
+        Intent intent = new Intent(this, ChildTemporary.class);
+        startActivity(intent);
+    }
     public void updateChild(View view) {
         // Do something in response to button click
         Intent intent = new Intent(this, UpdateChildActivity.class);

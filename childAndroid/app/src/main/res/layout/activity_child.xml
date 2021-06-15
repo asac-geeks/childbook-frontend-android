@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="myPosts"
-        android:text="My Posts"
+        android:text="My Posts and Shares"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update_profile_child" />
@@ -53,6 +53,17 @@
         android:text="AddPost"
         android:onClick="addPost"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/child_posts" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="237dp"
+        android:layout_height="75dp"
+        android:text="My Temporary Post, Share and Comments"
+        android:onClick="goToTemporaryChild"
+        app:layout_constraintBottom_toTopOf="@+id/add_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/child_posts" />
