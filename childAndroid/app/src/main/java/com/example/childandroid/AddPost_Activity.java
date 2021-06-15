@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -32,11 +34,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Context;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class AddPost_Activity extends AppCompatActivity {
     private static final int PICK_VIDEO = 1;
@@ -50,14 +64,13 @@ public class AddPost_Activity extends AppCompatActivity {
     StorageReference storageReference;
     DatabaseReference databaseReference;
     UploadTask uploadTask;
-    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
+        FirebaseAuth.getInstance().signInAnonymously();
         storageReference = FirebaseStorage.getInstance().getReference("Video");
         databaseReference = FirebaseDatabase.getInstance().getReference("Video");
-        mAuth = FirebaseAuth.getInstance();
 
         button = findViewById(R.id.upload_vedio);
         videoView = findViewById(R.id.videoView);
@@ -98,12 +111,15 @@ public class AddPost_Activity extends AppCompatActivity {
     private void uploadVideo(){
         String videoName = editText.getText().toString();
         if(videoUri != null || !TextUtils.isEmpty(videoName)){
-            progressBar.setVisibility(View.VISIBLE);
             final StorageReference reference = storageReference.child(System.currentTimeMillis() + "." + getExt(videoUri));
             uploadTask = reference.putFile(videoUri);
+            System.out.println(videoUri);
+            System.out.println("videoUri");
+            System.out.println(uploadTask);
             Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    System.out.println(reference.getDownloadUrl());
                     if(task.isSuccessful()){
                         throw task.getException();
                     }
@@ -131,5 +147,46 @@ public class AddPost_Activity extends AppCompatActivity {
             Toast.makeText(AddPost_Activity.this,"All Fields Are Required", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    public void submitPost(View view){
+        EditText title = findViewById(R.id.add_post_title);
+        EditText body = findViewById(R.id.post_body_add);
+
+        HttpLoggingInterceptor loggingInterceptor=new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client=new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build();
+        String json = "{\"postTitle\":\""+title.getText().toString()+"\",\"body\":\""+body.getText().toString()+"\",\"imageUrl\":\""+""+"\"}";
+        RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json"));
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer "+preferences.getString("token","");
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:4040/addPost")
+                .header("Authorization", token)
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                System.out.println("failed");
+//                e.printStackTrace();
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String myResponse=response.body().string();
+                    response.code();
+                    response.isSuccessful();
+                    Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
+                    startActivity(parentPageActivityIntent);
+                }
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ package com.example.childandroid;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,11 @@ public class ParentTemporaryPostsAdapter extends RecyclerView.Adapter<ParentTemp
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent k = new Intent(context, TempPostDetailsActivity.class);
+                TextView post = (TextView) v.findViewById(R.id.id_post);
 
+                k.putExtra("id",post.getText().toString());
+                context.startActivity(k);
             }
         });
 

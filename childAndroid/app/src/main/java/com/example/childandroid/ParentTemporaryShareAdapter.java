@@ -2,6 +2,7 @@ package com.example.childandroid;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,10 @@ public class ParentTemporaryShareAdapter extends RecyclerView.Adapter<ParentTemp
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent k = new Intent(context, PostDelailsActivity.class);
+                TextView share = (TextView) v.findViewById(R.id.id_share);
+                k.putExtra("id",share.getText().toString());
+                context.startActivity(k);
             }
         });
 
