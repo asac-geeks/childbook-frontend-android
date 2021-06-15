@@ -2,6 +2,7 @@ package com.example.childandroid;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,14 @@ public class ParentTemporaryCommentsAdapter extends RecyclerView.Adapter<ParentT
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent k = new Intent(context, CommentDetailActivity.class);
+                TextView comment = (TextView) v.findViewById(R.id.id);
+                TextView body = (TextView) v.findViewById(R.id.body);
+
+                k.putExtra("id",comment.getText().toString());
+                k.putExtra("body",comment.getText().toString());
+
+                context.startActivity(k);
             }
         });
 

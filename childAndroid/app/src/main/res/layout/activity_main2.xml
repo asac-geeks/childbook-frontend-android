@@ -88,6 +88,7 @@
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -98,6 +99,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/learn_img"></TextView>
+
+    <Button
+        android:id="@+id/parent_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToParentSignInPage"
+        android:text="parent login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>
@@ -287,6 +298,15 @@
          app:layout_constraintBottom_toBottomOf="@+id/imageView"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintStart_toStartOf="parent" />
+
+  <Button
+      android:id="@+id/button8"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="login"
+      android:onClick="goToLogin"
+      tools:layout_editor_absoluteX="151dp"
+      tools:layout_editor_absoluteY="182dp" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
