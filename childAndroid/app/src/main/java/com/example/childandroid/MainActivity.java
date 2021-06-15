@@ -57,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(parentIntent);
         });
 
+        findViewById(R.id.findFriends).setOnClickListener(v -> {
+            Intent parentIntent = new Intent(this, FindUser.class);
+            startActivity(parentIntent);
+        });
+
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},2);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -114,4 +119,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChildActivity.class);
         startActivity(intent);
     }
+
 }
