@@ -267,40 +267,28 @@
   <!--     app:layout_constraintHorizontal_bias="0.102"-->
   <!--     app:layout_constraintStart_toStartOf="parent"-->
   <!--     app:layout_constraintTop_toBottomOf="@+id/signup" />-->
+     <Button
+         android:id="@+id/findFriends"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="68dp"
+         android:text="Button"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.498"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
 
+     <Button
+         android:id="@+id/add_task"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Add Task"
+         android:onClick="addTask"
+         app:layout_constraintBottom_toBottomOf="@+id/imageView"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent" />
  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
 
- <Button
-     android:id="@+id/findFriends"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_marginTop="68dp"
-     android:text="Button"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintHorizontal_bias="0.498"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent" />
 
- <Button
-     android:id="@+id/child_account"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="Sign In Parent"
-     android:onClick="goToParentSignInPage"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toEndOf="@+id/board_page"
-     app:layout_constraintTop_toTopOf="parent" />
-
- <Button
-     android:id="@+id/add_task"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="Add Task"
-     android:onClick="addTask"
-     app:layout_constraintBottom_toBottomOf="@+id/imageView"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
