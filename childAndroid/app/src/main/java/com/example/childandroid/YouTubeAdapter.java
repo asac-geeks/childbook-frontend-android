@@ -13,15 +13,16 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.childandroid.modules.youtube.YouTubeApi;
+import com.example.childandroid.modules.youtube.YouTubeItems;
 import com.github.nkzawa.socketio.client.Url;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class YouTubeAdapter extends BaseAdapter {
-    List<YouTubeApi> videos = new ArrayList<>();
+    List<YouTubeItems> videos = new ArrayList<>();
 
-    public YouTubeAdapter(List<YouTubeApi> youTubeApi) {
+    public YouTubeAdapter(List<YouTubeItems> youTubeApi) {
         this.videos = youTubeApi;
     }
 
@@ -32,7 +33,7 @@ public class YouTubeAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return videos.get(0).getItems().get(position).getEtag();
+        return videos.get(position).getSnippet().getTitle();
     }
 
     @Override
@@ -45,6 +46,9 @@ public class YouTubeAdapter extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.you_tube_row, null);
 
+        for(YouTubeItems video: videos){
+            Log.d("response structure", "youtube id: "+ video.getId().getVideoId());
+        }
 
 //        TextView title = (TextView) view.findViewById(R.id.videoTitleRow);
 //        String titleValue = videos.get(0).getItems().get(position).getSnippet().getTitle();
@@ -57,10 +61,10 @@ public class YouTubeAdapter extends BaseAdapter {
         video.setMediaController(mediaController);
         mediaController.setAnchorView(video);
 
-        String id =  videos.get(0).getItems().get(position).getId().getVideoId();
-        Uri uri = Uri.parse("https://www.youtube.com/watch?v="+id);
+        String id =  videos.get(position).getId().getVideoId();
+//        Uri uri = Uri.parse("https://www.youtube.com/watch?v="+id);
 
-        video.setVideoURI(uri);
+//        video.setVideoURI(uri);
         video.requestFocus();
         video.start();
  // ----------------------- video call -------------------------------------- /l

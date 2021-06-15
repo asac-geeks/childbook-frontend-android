@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(parentIntent);
 //        });
 
+        findViewById(R.id.yazan).setOnClickListener(v -> {
+            Intent parentIntent = new Intent(this, feedsActivity.class);
+            startActivity(parentIntent);
+        });
 
         findViewById(R.id.findFriends).setOnClickListener(v -> {
             Intent parentIntent = new Intent(this, FindUser.class);

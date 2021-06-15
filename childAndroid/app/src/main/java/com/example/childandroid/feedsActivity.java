@@ -27,7 +27,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class feedsActivity extends AppCompatActivity {
-    String url = "https://as-childbook.herokuapp.com/games";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +39,11 @@ public class feedsActivity extends AppCompatActivity {
                 .readTimeout(0, TimeUnit.SECONDS)
                 .writeTimeout(0, TimeUnit.SECONDS)
                 .build();
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();
+
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -56,17 +57,15 @@ public class feedsActivity extends AppCompatActivity {
                 Type listType = new TypeToken<ArrayList<YouTubeApi>>(){}.getType();
                 List<YouTubeApi> youTubeApi = new Gson().fromJson(body, listType);
 
-
                 feedsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        List<YouTubeItems> youTubeItems = new ArrayList<>();
                         for(YouTubeItems video: youTubeApi.get(0).getItems()){
-
-                            Log.d("response structure", "youtube id: "+ video.getId().getVideoId());
-
+//                            Log.d("response structure", "youtube id: "+ video.getId().getVideoId());
+                            youTubeItems.add(video);
                         }
-                        YouTubeAdapter youTubeAdapter = new YouTubeAdapter(youTubeApi);
+                        YouTubeAdapter youTubeAdapter = new YouTubeAdapter(youTubeItems);
                         ListView youTubeListView = findViewById(R.id.youTubeListView);
                         youTubeListView.setAdapter(youTubeAdapter);
                     }

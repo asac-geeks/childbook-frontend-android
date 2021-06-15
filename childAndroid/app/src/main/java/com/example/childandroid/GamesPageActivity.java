@@ -31,7 +31,6 @@ import okhttp3.Response;
 
 public class GamesPageActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
