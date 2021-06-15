@@ -27,7 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ChildSignInActivity extends AppCompatActivity {
-    String url = "http://10.0.2.2:4040/authenticate";
+    String url = "http://192.168.1.82:8090/authenticate";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
