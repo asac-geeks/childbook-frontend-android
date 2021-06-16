@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -57,7 +58,6 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
         //        ======================navigation bar======================
 
 
-//        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar_view);
@@ -68,6 +68,8 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
+        String checker = preferences.getString("token", "");
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -76,6 +78,7 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -85,7 +88,15 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
         Context context = this;
 
         childLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +208,7 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ChildSignInActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(ChildSignInActivity.this, ParentSignInActivity.class);
@@ -209,10 +221,15 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ChildSignInActivity.this, MainActivity.class);
                 break;
             case R.id.nav_child_signUp:
                 intent = new Intent(ChildSignInActivity.this, SignUp.class);
                 break;
+            case R.id.nav_chat:
+                intent = new Intent(ChildSignInActivity.this, ChatActivity.class);
+                break;
+
         }
         startActivity(intent);
         return true;
