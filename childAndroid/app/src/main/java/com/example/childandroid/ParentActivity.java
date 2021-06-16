@@ -62,6 +62,8 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         OkHttpClient httpClient = new OkHttpClient();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = "Bearer " + preferences.getString("token", "");
+        System.out.println("token12");
+        System.out.println(token);
         Request request = new Request.Builder()
                 .url(url)
                 .header("Authorization", token)

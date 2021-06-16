@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -56,8 +57,8 @@ public class ChildTemporary extends AppCompatActivity implements NavigationView.
                 .build();
 
         RecyclerView recyclerViewPost = findViewById(R.id.temp_posts);
-        RecyclerView recyclerViewComments = findViewById(R.id.temp_comments);
-        RecyclerView recyclerViewShares = findViewById(R.id.temp_shares);
+//        RecyclerView recyclerViewComments = findViewById(R.id.temp_comments);
+//        RecyclerView recyclerViewShares = findViewById(R.id.temp_shares);
 
         System.out.println("myHandler: here!"); // Do your work here
         httpClient.newCall(request).enqueue(new Callback() {
@@ -101,13 +102,13 @@ public class ChildTemporary extends AppCompatActivity implements NavigationView.
             arr.addAll(childTemResponse.getShares());
             parentTemporaryShareAdapter = new ParentTemporaryShareAdapter(this, arr);
 
-            recyclerViewComments.setAdapter(parentTemporaryCommentsAdapter);
+//            recyclerViewComments.setAdapter(parentTemporaryCommentsAdapter);
             recyclerViewPost.setAdapter(parentTemporaryPostsAdapter);
-            recyclerViewShares.setAdapter(parentTemporaryShareAdapter);
+//            recyclerViewShares.setAdapter(parentTemporaryShareAdapter);
 
             recyclerViewPost.setLayoutManager(new LinearLayoutManager(this));
-            recyclerViewShares.setLayoutManager(new LinearLayoutManager(this));
-            recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
+//            recyclerViewShares.setLayoutManager(new LinearLayoutManager(this));
+//            recyclerViewComments.setLayoutManager(new LinearLayoutManager(this));
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -124,15 +125,21 @@ public class ChildTemporary extends AppCompatActivity implements NavigationView.
 //        =======================================Navigation Drawer Menu
 
 // ============================== Hide not needed items from navBar
-        Menu menu = navigationView.getMenu();
         String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        Menu menu = navigationView.getMenu();
+        System.out.println( preferences.getString("token", ""));
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -140,7 +147,20 @@ public class ChildTemporary extends AppCompatActivity implements NavigationView.
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
     //    ==================================to prevent go out of the the app
     @Override

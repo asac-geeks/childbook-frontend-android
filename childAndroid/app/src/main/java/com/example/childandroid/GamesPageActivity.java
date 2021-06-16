@@ -68,7 +68,10 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
 
         // ============================== Hide not needed items from navBar
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
+        String checker = preferences.getString("token", "");
         Menu menu = navigationView.getMenu();
+        System.out.println( preferences.getString("token", ""));
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -78,6 +81,8 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
             menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -88,7 +93,11 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
             menu.findItem(R.id.nav_chat).setVisible(true);
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -101,7 +110,7 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
 
     // ---------------------------- Games Api Methods Logic Start-------------------------- //
     public void getDataFromUrl(String searchValue){
-        String url = "https://as-childbook.herokuapp.com/games/category/"+ searchValue;
+        String url = "http://10.0.2.2:4040/games/category/"+ searchValue;
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -138,49 +147,55 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(GamesPageActivity.this, MainActivity.class);
 
                 break;
             case R.id.nav_youtube:
-                intent = new Intent(this, feedsActivity.class);
+                intent = new Intent(GamesPageActivity.this, feedsActivity.class);
                 break;
             case R.id.nav_our_games:
-                intent = new Intent(this, GamesPageActivity.class);
+                intent = new Intent(GamesPageActivity.this, GamesPageActivity.class);
                 break;
             case R.id.nav_whiteboard:
-                intent = new Intent(this, DrawBoardActivity.class);
+                intent = new Intent(GamesPageActivity.this, DrawBoardActivity.class);
                 break;
             case R.id.nav_child_login:
-                intent = new Intent(this, ChildSignInActivity.class);
+                intent = new Intent(GamesPageActivity.this, ChildSignInActivity.class);
                 break;
             case R.id.nav_child_profile:
-                intent = new Intent(this, ChildActivity.class);
+                intent = new Intent(GamesPageActivity.this, ChildActivity.class);
                 break;
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(GamesPageActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
-                intent = new Intent(this, ParentSignInActivity.class);
+                intent = new Intent(GamesPageActivity.this, ParentSignInActivity.class);
                 break;
             case R.id.nav_parent_profile:
-                intent = new Intent(this, ParentActivity.class);
+                intent = new Intent(GamesPageActivity.this, ParentActivity.class);
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
-                intent = new Intent(this, MainActivity.class);
+                intent = new Intent(GamesPageActivity.this, MainActivity.class);
                 break;
             case R.id.nav_child_signUp:
-                intent = new Intent(this, SignUp.class);
+                intent = new Intent(GamesPageActivity.this, SignUp.class);
                 break;
             case R.id.nav_chat:
-                intent = new Intent(this, ChatActivity.class);
+                intent = new Intent(GamesPageActivity.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(GamesPageActivity.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(GamesPageActivity.this, AllPostsActivity.class);
                 break;
         }
         startActivity(intent);

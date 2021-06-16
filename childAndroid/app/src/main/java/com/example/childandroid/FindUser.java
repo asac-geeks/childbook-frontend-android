@@ -56,7 +56,7 @@ public class FindUser extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View v) {
                 System.out.println("button");
-                String url = "http://192.168.1.82:8090/user/" + findUser.getText().toString();
+                String url = "http://10.0.2.2:4040/user/" + findUser.getText().toString();
                 System.out.println(url);
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -95,7 +95,7 @@ public class FindUser extends AppCompatActivity implements NavigationView.OnNavi
                                         @Override
                                         public void onClick(View v) {
 
-                                            String URL = "http://192.168.1.82:8090/follow/" + appUser.getId();
+                                            String URL = "http://10.0.2.2:4040/follow/" + appUser.getId();
                                             System.out.println(URL);
                                             OkHttpClient httpClient = new OkHttpClient();
                                             Request request1 = new Request.Builder()
@@ -140,7 +140,9 @@ public class FindUser extends AppCompatActivity implements NavigationView.OnNavi
 //        =======================================Navigation Drawer Menu
 
         // ============================== Hide not needed items from navBar
+        String checker = preferences.getString("token", "");
         Menu menu = navigationView.getMenu();
+        System.out.println( preferences.getString("token", ""));
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -150,6 +152,8 @@ public class FindUser extends AppCompatActivity implements NavigationView.OnNavi
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
             menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -160,7 +164,11 @@ public class FindUser extends AppCompatActivity implements NavigationView.OnNavi
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
             menu.findItem(R.id.nav_chat).setVisible(true);
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);

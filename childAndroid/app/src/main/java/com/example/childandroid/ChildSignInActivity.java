@@ -66,10 +66,11 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
 //        =======================================Navigation Drawer Menu
 
 // ============================== Hide not needed items from navBar
-        Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = "Bearer " + preferences.getString("token", "");
         String checker = preferences.getString("token", "");
+        Menu menu = navigationView.getMenu();
+        System.out.println( preferences.getString("token", ""));
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -79,6 +80,8 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
             menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -89,7 +92,11 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
             menu.findItem(R.id.nav_chat).setVisible(true);
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -228,6 +235,12 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
                 break;
             case R.id.nav_chat:
                 intent = new Intent(ChildSignInActivity.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(ChildSignInActivity.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(ChildSignInActivity.this, AllPostsActivity.class);
                 break;
 
         }

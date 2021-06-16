@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="sans-serif"
-                        android:text="Email"
+                        android:text="Password"
                         android:textColor="@color/fontbuttoncolor"
                         android:textSize="25dp"
                         android:textStyle="bold"

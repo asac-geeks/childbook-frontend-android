@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -41,6 +42,9 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    private RecyclerView recyclerViewPost;
+    private RecyclerView recyclerViewShare;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.activity_all_posts);
         recyclerView = findViewById(R.id.posts_child_res);
         String url = "http://10.0.2.2:4040/feeds";
+        recyclerViewPost = findViewById(R.id.posts_child_res);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = "Bearer " + preferences.getString("token", "");
@@ -73,6 +78,7 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
                     Type listType = new TypeToken<Set<Post>>() {
                     }.getType();
                     posts.addAll(new Gson().fromJson(body, listType));
+                    System.out.println(posts);
                 }
             }
         });
@@ -97,14 +103,20 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
 
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
-        String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        System.out.println( preferences.getString("token", ""));
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -112,7 +124,20 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
 
     //    ==================================to prevent go out of the the app
@@ -130,6 +155,8 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(AllPostsActivity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(AllPostsActivity.this, feedsActivity.class);
@@ -151,6 +178,7 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(AllPostsActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(AllPostsActivity.this, ParentSignInActivity.class);
@@ -163,12 +191,25 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(AllPostsActivity.this, MainActivity.class);
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(AllPostsActivity.this, SignUp.class);
+                break;
+            case R.id.nav_chat:
+                intent = new Intent(AllPostsActivity.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(AllPostsActivity.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(AllPostsActivity.this, AllPostsActivity.class);
+                break;
+
         }
         startActivity(intent);
         return true;
     }
-
     public void addPost(View view) {
         Intent intent = new Intent(this, AddPost_Activity.class);
         startActivity(intent);
