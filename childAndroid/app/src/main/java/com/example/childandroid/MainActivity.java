@@ -41,12 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-//        ======================navigation bar======================
-//        findViewById(R.id.yazan).setOnClickListener(v -> {
-//            Intent parentIntent = new Intent(this, feedsActivity.class);
-//            startActivity(parentIntent);
-//        });
-
 //        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
