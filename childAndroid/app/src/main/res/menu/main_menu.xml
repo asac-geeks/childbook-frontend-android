@@ -17,6 +17,10 @@
             android:id="@+id/nav_whiteboard"
             android:icon="@drawable/home_icon"
             android:title="Whiteboard" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/home_icon"
+            android:title="Chat" />
     </group>
 
     <item android:title="My Profile">
