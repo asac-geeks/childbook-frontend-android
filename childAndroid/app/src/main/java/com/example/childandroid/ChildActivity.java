@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -76,6 +78,8 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -83,12 +87,36 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+
         }
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        CardView add_post = findViewById(R.id. add_post);
+        add_post.setOnClickListener(v->{
+            Intent intent = new Intent(this, AddPost_Activity.class);
+            startActivity(intent);
+        });
+        CardView child_posts = findViewById(R.id.child_posts);
+        child_posts.setOnClickListener(v->{
+            Intent intent = new Intent(this, MyPostActivity.class);
+            startActivity(intent);
+        });
+        CardView update_profile_child = findViewById(R.id.update_profile_child);
+        update_profile_child.setOnClickListener(v->{
+            Intent intent = new Intent(this, UpdateChildActivity.class);
+            startActivity(intent);
+        });
+
+        CardView temp = findViewById(R.id.button7);
+        temp.setOnClickListener(v->{
+            Intent intent = new Intent(this, ChildTemporary.class);
+            startActivity(intent);
+        });
+
         String url = "http://10.0.2.2:4040/profile";
         System.out.println("token");
         System.out.println(token);
@@ -120,13 +148,16 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 }
             }
 
-
         });
         try {
             Thread.sleep(5000);
             System.out.println(childData);
             System.out.println("children");
             TextView email = findViewById(R.id.child_parent_email);
+            System.out.println("childData.getEmail()");
+            System.out.println(childData.getEmail());
+            System.out.println(childData.getUserName());
+
             email.setText(childData.getEmail());
 
             TextView username = findViewById(R.id.child_username);
@@ -220,6 +251,8 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(ChildActivity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ChildActivity.this, feedsActivity.class);
@@ -254,8 +287,30 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 editor.remove("token");
                 editor.commit();
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(ChildActivity.this, SignUp.class);
+                break;
         }
         startActivity(intent);
         return true;
+    }
+//    ====================================================================
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChildActivity that = (ChildActivity) o;
+        return Objects.equals(fusedLocationClient, that.fusedLocationClient) &&
+                Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar) &&
+                Objects.equals(childData, that.childData);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fusedLocationClient, drawerLayout, navigationView, toolbar, childData);
     }
 }

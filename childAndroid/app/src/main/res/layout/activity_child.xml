@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -366,41 +364,41 @@
 
         <!--         I'm Here /////////////////////////////////////////////////////-->
 
-<!--        <Button-->
-<!--            android:id="@+id/"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:onClick="updateChild"-->
-<!--            android:text="Upate Profile"-->
-<!--            tools:layout_editor_absoluteX="225dp"-->
-<!--            tools:layout_editor_absoluteY="477dp" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:onClick="updateChild"-->
+        <!--            android:text="Upate Profile"-->
+        <!--            tools:layout_editor_absoluteX="225dp"-->
+        <!--            tools:layout_editor_absoluteY="477dp" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:onClick="myPosts"-->
-<!--            android:text="My Posts and Shares"-->
-<!--            tools:layout_editor_absoluteX="192dp"-->
-<!--            tools:layout_editor_absoluteY="525dp" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:onClick="myPosts"-->
+        <!--            android:text="My Posts and Shares"-->
+        <!--            tools:layout_editor_absoluteX="192dp"-->
+        <!--            tools:layout_editor_absoluteY="525dp" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:onClick="addPost"-->
-<!--            android:text="AddPost"-->
-<!--            tools:layout_editor_absoluteX="249dp"-->
-<!--            tools:layout_editor_absoluteY="744dp" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:onClick="addPost"-->
+        <!--            android:text="AddPost"-->
+        <!--            tools:layout_editor_absoluteX="249dp"-->
+        <!--            tools:layout_editor_absoluteY="744dp" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/"-->
-<!--            android:layout_width="237dp"-->
-<!--            android:layout_height="75dp"-->
-<!--            android:onClick="goToTemporaryChild"-->
-<!--            android:text="My Temporary Post, Share and Comments"-->
-<!--            tools:layout_editor_absoluteX="182dp"-->
-<!--            tools:layout_editor_absoluteY="621dp" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/"-->
+        <!--            android:layout_width="237dp"-->
+        <!--            android:layout_height="75dp"-->
+        <!--            android:onClick="goToTemporaryChild"-->
+        <!--            android:text="My Temporary Post, Share and Comments"-->
+        <!--            tools:layout_editor_absoluteX="182dp"-->
+        <!--            tools:layout_editor_absoluteY="621dp" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

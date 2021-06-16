@@ -28,6 +28,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FusedLocationProviderClient fusedLocationClient;
     DrawerLayout drawerLayout;
@@ -53,14 +55,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = "Bearer " + preferences.getString("token", "");
-        if (token.equals("")) {
+        System.out.println( preferences.getString("token", ""));
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
         }
 
 
@@ -181,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
-
     public void goChildPage(View view) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -207,6 +211,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(MainActivity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(MainActivity.this, feedsActivity.class);
@@ -241,11 +247,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 editor.remove("token");
                 editor.commit();
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(MainActivity.this, SignUp.class);
+                break;
         }
         startActivity(intent);
         return true;
     }
 //    ====================================================================
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MainActivity that = (MainActivity) o;
+        return Objects.equals(fusedLocationClient, that.fusedLocationClient) &&
+                Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fusedLocationClient, drawerLayout, navigationView, toolbar);
+    }
 }
 
 

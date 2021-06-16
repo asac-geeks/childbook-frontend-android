@@ -3,6 +3,7 @@ package com.example.childandroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -25,6 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,7 +47,7 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_verification);
-        Button verification = findViewById(R.id.Verify);
+        CardView verification = findViewById(R.id.Verify);
         Context context = this;
         verification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,14 +109,15 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = "Bearer " + preferences.getString("token", "");
-        if (token.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -122,6 +125,8 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+
         }
     }
 
@@ -139,6 +144,8 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(ParentVerification.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ParentVerification.this, feedsActivity.class);
@@ -173,8 +180,28 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
                 editor.remove("token");
                 editor.commit();
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(ParentVerification.this, SignUp.class);
+                break;
         }
         startActivity(intent);
         return true;
+    }
+//    ====================================================================
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParentVerification that = (ParentVerification) o;
+        return Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(drawerLayout, navigationView, toolbar);
     }
 }

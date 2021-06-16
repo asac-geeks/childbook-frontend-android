@@ -3,6 +3,7 @@ package com.example.childandroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -35,7 +37,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ChildSignInActivity extends AppCompatActivity {
+public class ChildSignInActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     String url = "http://192.168.1.82:8090/authenticate";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -49,7 +51,7 @@ public class ChildSignInActivity extends AppCompatActivity {
 
         TextView childUsername = findViewById(R.id.loginChildUserNameFeild);
         TextView childPassword = findViewById(R.id.loginChildPasswordFeild);
-        Button childLoginButton = findViewById(R.id.childLoginButton);
+        CardView childLoginButton = findViewById(R.id.childLoginButton);
 
         //        ======================navigation bar======================
 
@@ -65,14 +67,15 @@ public class ChildSignInActivity extends AppCompatActivity {
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = "Bearer " + preferences.getString("token", "");
-        if (token.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -80,6 +83,7 @@ public class ChildSignInActivity extends AppCompatActivity {
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
         }
 
         childLoginButton.setOnClickListener(v -> {
@@ -161,48 +165,70 @@ public class ChildSignInActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+        Intent intent = new Intent();
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                intent = new Intent(ChildSignInActivity.this, MainActivity.class);
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-//        Intent intent = new Intent();
-//        switch (item.getItemId()) {
-//            case R.id.nav_home:
-//                break;
-//            case R.id.nav_youtube:
-//                intent = new Intent(ChildSignInActivity.this, feedsActivity.class);
-//                break;
-//            case R.id.nav_our_games:
-//                intent = new Intent(ChildSignInActivity.this, GamesPageActivity.class);
-//                break;
-//            case R.id.nav_whiteboard:
-//                intent = new Intent(ChildSignInActivity.this, DrawBoardActivity.class);
-//                break;
-//            case R.id.nav_child_login:
-//                intent = new Intent(ChildSignInActivity.this, ChildSignInActivity.class);
-//                break;
-//            case R.id.nav_child_profile:
-//                intent = new Intent(ChildSignInActivity.this, ChildActivity.class);
-//                break;
-//            case R.id.nav_child_logout:
-//                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//                SharedPreferences.Editor editor = preferences.edit();
-//                editor.remove("token");
-//                editor.commit();
-//                break;
-//            case R.id.nav_parent_login:
-//                intent = new Intent(ChildSignInActivity.this, ParentSignInActivity.class);
-//                break;
-//            case R.id.nav_parent_profile:
-//                intent = new Intent(ChildSignInActivity.this, ParentActivity.class);
-//                break;
-//            case R.id.nav_parent_logout:
-//                preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//                editor = preferences.edit();
-//                editor.remove("token");
-//                editor.commit();
-//                break;
-//        }
-//        startActivity(intent);
-//        return true;
-//    }
+                break;
+            case R.id.nav_youtube:
+                intent = new Intent(ChildSignInActivity.this, feedsActivity.class);
+                break;
+            case R.id.nav_our_games:
+                intent = new Intent(ChildSignInActivity.this, GamesPageActivity.class);
+                break;
+            case R.id.nav_whiteboard:
+                intent = new Intent(ChildSignInActivity.this, DrawBoardActivity.class);
+                break;
+            case R.id.nav_child_login:
+                intent = new Intent(ChildSignInActivity.this, ChildSignInActivity.class);
+                break;
+            case R.id.nav_child_profile:
+                intent = new Intent(ChildSignInActivity.this, ChildActivity.class);
+                break;
+            case R.id.nav_child_logout:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("token");
+                editor.commit();
+                break;
+            case R.id.nav_parent_login:
+                intent = new Intent(ChildSignInActivity.this, ParentSignInActivity.class);
+                break;
+            case R.id.nav_parent_profile:
+                intent = new Intent(ChildSignInActivity.this, ParentActivity.class);
+                break;
+            case R.id.nav_parent_logout:
+                preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                editor = preferences.edit();
+                editor.remove("token");
+                editor.commit();
+                break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(ChildSignInActivity.this, SignUp.class);
+                break;
+        }
+        startActivity(intent);
+        return true;
+    }
+//    ====================================================================
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChildSignInActivity that = (ChildSignInActivity) o;
+        return Objects.equals(url, that.url) &&
+                Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, drawerLayout, navigationView, toolbar);
+    }
 }

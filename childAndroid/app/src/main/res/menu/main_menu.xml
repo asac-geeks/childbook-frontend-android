@@ -35,6 +35,10 @@
                     android:id="@+id/nav_child_logout"
                     android:icon="@drawable/home_icon"
                     android:title="Logout" />
+                <item
+                    android:id="@+id/nav_child_signUp"
+                    android:icon="@drawable/home_icon"
+                    android:title="Signup" />
             </group>
         </menu>
     </item>
