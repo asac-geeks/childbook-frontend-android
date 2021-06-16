@@ -184,7 +184,6 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
 
         //        ======================navigation bar======================
 
-
 //        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
