@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main2);
 
 //        ======================navigation bar======================
-        findViewById(R.id.yazan).setOnClickListener(v -> {
-            Intent parentIntent = new Intent(this, feedsActivity.class);
-            startActivity(parentIntent);
-        });
+//        findViewById(R.id.yazan).setOnClickListener(v -> {
+//            Intent parentIntent = new Intent(this, feedsActivity.class);
+//            startActivity(parentIntent);
+//        });
 
 //        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -122,10 +122,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //     }
 // });
 
-        findViewById(R.id.findFriends).setOnClickListener(v -> {
-            Intent parentIntent = new Intent(this, FindUser.class);
-            startActivity(parentIntent);
-        });
+//        findViewById(R.id.findFriends).setOnClickListener(v -> {
+//            Intent parentIntent = new Intent(this, FindUser.class);
+//            startActivity(parentIntent);
+//        });
 
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
