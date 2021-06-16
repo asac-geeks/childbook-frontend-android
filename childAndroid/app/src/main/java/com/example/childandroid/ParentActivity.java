@@ -188,8 +188,12 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         for (AppUser child : children) {
             if (child.getLocation() != null) {
                 String[] location = child.getLocation().split(",");
-                LatLng latLng = new LatLng(Float.parseFloat(location[0]), Float.parseFloat(location[0]));
 
+                LatLng latLng = new LatLng(Float.parseFloat("32.0625"),Float.parseFloat("35.8844"));
+
+                if (location.length == 0) {
+                    latLng = new LatLng(Float.parseFloat(location[1]), Float.parseFloat(location[0]));
+                }
                 map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title("Marker"));
@@ -199,4 +203,5 @@ public class ParentActivity extends FragmentActivity implements OnMapReadyCallba
         }
 
     }
+
 }

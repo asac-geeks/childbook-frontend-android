@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ChildSignInActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
-    String url = "http://192.168.1.82:8090/authenticate";
+    String url = "http://10.0.2.2:4040/authenticate";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -85,74 +86,77 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
         }
+        Context context = this;
 
-        childLoginButton.setOnClickListener(v -> {
-            String username = childUsername.getText().toString();
-            String password = childPassword.getText().toString();
-            // ------------------------ HTTP client start---------------------------------- //
-            // OkHttpClient client = new OkHttpClient();
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .connectTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(10, TimeUnit.SECONDS)
-                    .writeTimeout(10, TimeUnit.SECONDS)
-                    .build();
+        childLoginButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    String username = childUsername.getText().toString();
+                                                    String password = childPassword.getText().toString();
+                                                    // ------------------------ HTTP client start---------------------------------- //
+                                                    // OkHttpClient client = new OkHttpClient();
+                                                    System.out.println("here11111");
+                                                    OkHttpClient client = new OkHttpClient().newBuilder()
+                                                            .connectTimeout(10, TimeUnit.SECONDS)
+                                                            .readTimeout(10, TimeUnit.SECONDS)
+                                                            .writeTimeout(10, TimeUnit.SECONDS)
+                                                            .build();
 
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("userName", username);
-                jsonObject.put("password", password);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-            RequestBody body = RequestBody.create(JSON, jsonObject.toString());
+                                                    JSONObject jsonObject = new JSONObject();
+                                                    try {
+                                                        jsonObject.put("userName", username);
+                                                        jsonObject.put("password", password);
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                                                    RequestBody body = RequestBody.create(JSON, jsonObject.toString());
 
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-            Context context = this;
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    e.printStackTrace();
-                }
+                                                    Request request = new Request.Builder()
+                                                            .url(url)
+                                                            .post(body)
+                                                            .build();
+                                                    client.newCall(request).enqueue(new Callback() {
+                                                        @Override
+                                                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                                            e.printStackTrace();
+                                                        }
 
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    if (response.isSuccessful()) {
+                                                        @Override
+                                                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                                            if (response.isSuccessful()) {
 
-                        ChildSignInActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (response.code() == 200) {
-                                    System.out.println("work fine");
-                                    String myResponse = null;
-                                    try {
-                                        myResponse = response.body().string();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    response.code();
-                                    response.isSuccessful();
-                                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    System.out.println("token1");
-                                    System.out.println(myResponse);
-                                    editor.putString("token", myResponse);
-                                    editor.apply();
-                                    Intent verifiedUser = new Intent(ChildSignInActivity.this, ChildActivity.class);
-                                    startActivity(verifiedUser);
-                                } else {
-                                    Log.d("response body:", "code: " + response.toString());
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-            // ------------------------ Http client end ----------------------------------//
-        });
+                                                                ChildSignInActivity.this.runOnUiThread(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        if (response.code() == 200) {
+                                                                            System.out.println("work fine");
+                                                                            String myResponse = null;
+                                                                            try {
+                                                                                myResponse = response.body().string();
+                                                                            } catch (IOException e) {
+                                                                                e.printStackTrace();
+                                                                            }
+                                                                            response.code();
+                                                                            response.isSuccessful();
+                                                                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                                                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                                            System.out.println("token1");
+                                                                            System.out.println(myResponse);
+                                                                            editor.putString("token", myResponse);
+                                                                            editor.apply();
+                                                                            Intent verifiedUser = new Intent(ChildSignInActivity.this, ChildActivity.class);
+                                                                            startActivity(verifiedUser);
+                                                                        } else {
+                                                                            Log.d("response body:", "code: " + response.toString());
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                    // ------------------------ Http client end ----------------------------------//
+                                                }});
     }
 
     //    ==================================to prevent go out of the the app

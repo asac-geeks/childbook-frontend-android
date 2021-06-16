@@ -173,12 +173,13 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        System.out.println("location");
+                        System.out.println("location1");
+                        System.out.println(location);
                         if (location != null) {
                             System.out.println(location.getLongitude());
                             System.out.println(location.getLatitude());
                             String url = "http://10.0.2.2:4040/userLocation";
-                            String locationString = Double.toString(location.getLatitude()) + Double.toString(location.getLongitude());
+                            String locationString = Double.toString(location.getLatitude())+"," + Double.toString(location.getLongitude());
                             String json = "{\"location\":\"" + locationString + "\"}";
 
                             RequestBody body = RequestBody.create(JSON, json);
