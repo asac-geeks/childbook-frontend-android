@@ -238,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(MainActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(MainActivity.this, ParentSignInActivity.class);
@@ -250,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(MainActivity.this, MainActivity.class);
                 break;
             case R.id.nav_child_signUp:
                 intent = new Intent(MainActivity.this, SignUp.class);
