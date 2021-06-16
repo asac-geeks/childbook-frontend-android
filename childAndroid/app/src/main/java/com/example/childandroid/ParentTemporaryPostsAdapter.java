@@ -11,16 +11,17 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.childandroid.modules.Post;
 import com.example.childandroid.modules.TemporaryPost;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ParentTemporaryPostsAdapter extends RecyclerView.Adapter<ParentTemporaryPostsAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView body;
         public ViewHolder (View itemView){
             super(itemView);
-
             body = itemView.findViewById(R.id.body);
         }
     }
@@ -42,18 +43,35 @@ public class ParentTemporaryPostsAdapter extends RecyclerView.Adapter<ParentTemp
     @Override
     public void onBindViewHolder(ParentTemporaryPostsAdapter.ViewHolder holder, int position) {
         TemporaryPost post = posts.get(position);
+        System.out.println(post);
         holder.body.setText(post.getBody());
+        System.out.println(post.getBody());
+        System.out.println(post.getId());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent k = new Intent(context, TempPostDetailsActivity.class);
-                TextView post = (TextView) v.findViewById(R.id.id_post);
-
-                k.putExtra("id",post.getText().toString());
+                TextView post =  v.findViewById(R.id.body);
+                System.out.println(post.getText().toString());
+                k.putExtra("id",1);
                 context.startActivity(k);
             }
         });
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParentTemporaryPostsAdapter that = (ParentTemporaryPostsAdapter) o;
+        return Objects.equals(context, that.context) &&
+                Objects.equals(posts, that.posts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(context, posts);
     }
 
     @Override

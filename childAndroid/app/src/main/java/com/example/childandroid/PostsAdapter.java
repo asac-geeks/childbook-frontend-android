@@ -18,10 +18,7 @@ public class PostsAdapter  extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
         TextView body,title,username,id;
         public ViewHolder (View itemView){
             super(itemView);
-            body = itemView.findViewById(R.id.post_body);
-            title = itemView.findViewById(R.id.post_title);
-            username= itemView.findViewById(R.id.post_user);
-            id = itemView.findViewById(R.id.post_id);
+            body = itemView.findViewById(R.id.body);
         }
     }
 
@@ -34,7 +31,7 @@ public class PostsAdapter  extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
 
     public PostsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(context).inflate(R.layout.task,parent,false);
-        View view = LayoutInflater.from(context).inflate(R.layout.temp_comment_parent, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.temp_post_parent, parent, false);
 
         return new PostsAdapter.ViewHolder(view);
     }
@@ -43,9 +40,6 @@ public class PostsAdapter  extends RecyclerView.Adapter<PostsAdapter.ViewHolder>
     public void onBindViewHolder(PostsAdapter.ViewHolder holder, int position) {
         Post post = posts.get(position);
         holder.body.setText(post.getBody());
-        holder.title.setText(post.getPostTitle());
-        holder.username.setText(post.getAppUser().getUserName());
-        holder.id.setText(post.getId());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

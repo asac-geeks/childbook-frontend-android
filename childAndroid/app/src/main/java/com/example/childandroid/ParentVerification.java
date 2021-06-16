@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -107,8 +108,11 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
 //        =======================================Navigation Drawer Menu
 
 // ============================== Hide not needed items from navBar
-        Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
+        String checker = preferences.getString("token", "");
+        Menu menu = navigationView.getMenu();
+        System.out.println( preferences.getString("token", ""));
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -118,6 +122,8 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
             menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -128,8 +134,18 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
             menu.findItem(R.id.nav_chat).setVisible(true);
-
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
 
     @Override
@@ -147,6 +163,7 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
         switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(ParentVerification.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ParentVerification.this, feedsActivity.class);
@@ -166,9 +183,9 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                intent = new Intent(ParentVerification.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ParentVerification.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(ParentVerification.this, ParentSignInActivity.class);
@@ -178,16 +195,22 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                intent = new Intent(ParentVerification.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ParentVerification.this, MainActivity.class);
                 break;
             case R.id.nav_child_signUp:
                 intent = new Intent(ParentVerification.this, SignUp.class);
                 break;
             case R.id.nav_chat:
                 intent = new Intent(ParentVerification.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(ParentVerification.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(ParentVerification.this, AllPostsActivity.class);
                 break;
         }
         startActivity(intent);

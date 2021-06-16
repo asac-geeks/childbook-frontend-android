@@ -143,7 +143,7 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
                                       }
                                       SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                                       SharedPreferences.Editor editor = sharedPreferences.edit();
-                                      System.out.println("token1");
+                                      System.out.println("token1login");
                                       System.out.println(myResponse);
                                       editor.putString("token",myResponse);
                                       editor.apply();
@@ -168,6 +168,7 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
         switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(ParentSignInActivity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ParentSignInActivity.this, feedsActivity.class);
@@ -187,7 +188,6 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                intent = new Intent(ParentSignInActivity.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
                 intent = new Intent(ParentSignInActivity.this, MainActivity.class);
@@ -200,12 +200,22 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                intent = new Intent(ParentSignInActivity.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ParentSignInActivity.this, MainActivity.class);
+                break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(ParentSignInActivity.this, SignUp.class);
+                break;
             case R.id.nav_chat:
                 intent = new Intent(ParentSignInActivity.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(ParentSignInActivity.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(ParentSignInActivity.this, AllPostsActivity.class);
                 break;
         }
         startActivity(intent);

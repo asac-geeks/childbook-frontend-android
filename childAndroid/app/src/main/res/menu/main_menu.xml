@@ -21,6 +21,14 @@
             android:id="@+id/nav_chat"
             android:icon="@drawable/home_icon"
             android:title="Chat" />
+        <item
+            android:id="@+id/nav_find_friend"
+            android:icon="@drawable/home_icon"
+            android:title="Find_Friend" />
+        <item
+            android:id="@+id/my_friends_Posts"
+            android:icon="@drawable/home_icon"
+            android:title="My Friends Posts" />
     </group>
 
     <item android:title="My Profile">

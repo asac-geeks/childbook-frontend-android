@@ -47,7 +47,7 @@ public class FeedPageActivity extends AppCompatActivity {
     }
     // ---------------------------- YouTube Methods Logic Start-------------------------- //
     public void getDataFromUrl(String searchValue){
-        String url = "https://as-childbook.herokuapp.com/games/category/"+ searchValue;
+        String url = "http://10.0.2.2:4040/games/category/"+ searchValue;
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)

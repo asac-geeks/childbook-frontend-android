@@ -194,7 +194,10 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
 
 // ============================== Hide not needed items from navBar
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
+        String checker = preferences.getString("token", "");
         Menu menu = navigationView.getMenu();
+        System.out.println( preferences.getString("token", ""));
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -204,6 +207,8 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
             menu.findItem(R.id.nav_chat).setVisible(false);
+            menu.findItem(R.id.nav_find_friend).setVisible(false);
+            menu.findItem(R.id.my_friends_Posts).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -214,7 +219,11 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
             menu.findItem(R.id.nav_chat).setVisible(true);
+            menu.findItem(R.id.nav_find_friend).setVisible(true);
+            menu.findItem(R.id.my_friends_Posts).setVisible(true);
         }
+
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -222,7 +231,6 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-
     }
 
     //    ==================================to prevent go out of the the app
@@ -241,6 +249,7 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
         switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(SignUp.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(SignUp.this, feedsActivity.class);
@@ -260,7 +269,6 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                intent = new Intent(SignUp.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
                 intent = new Intent(SignUp.this, MainActivity.class);
@@ -273,12 +281,22 @@ public class SignUp extends AppCompatActivity implements NavigationView.OnNaviga
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                intent = new Intent(SignUp.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(SignUp.this, MainActivity.class);
+                break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(SignUp.this, SignUp.class);
+                break;
             case R.id.nav_chat:
                 intent = new Intent(SignUp.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(SignUp.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(SignUp.this, AllPostsActivity.class);
                 break;
         }
         startActivity(intent);

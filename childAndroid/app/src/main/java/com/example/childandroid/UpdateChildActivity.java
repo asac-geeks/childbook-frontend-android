@@ -102,12 +102,14 @@ public class UpdateChildActivity extends AppCompatActivity implements Navigation
         }
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(UpdateChildActivity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(UpdateChildActivity.this, feedsActivity.class);
@@ -127,7 +129,6 @@ public class UpdateChildActivity extends AppCompatActivity implements Navigation
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
-                intent = new Intent(UpdateChildActivity.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
                 intent = new Intent(UpdateChildActivity.this, MainActivity.class);
@@ -140,12 +141,22 @@ public class UpdateChildActivity extends AppCompatActivity implements Navigation
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                intent = new Intent(UpdateChildActivity.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(UpdateChildActivity.this, MainActivity.class);
+                break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(UpdateChildActivity.this, SignUp.class);
+                break;
             case R.id.nav_chat:
                 intent = new Intent(UpdateChildActivity.this, ChatActivity.class);
+                break;
+            case R.id.nav_find_friend:
+                intent = new Intent(UpdateChildActivity.this, FindUser.class);
+                break;
+            case R.id.my_friends_Posts:
+                intent = new Intent(UpdateChildActivity.this, AllPostsActivity.class);
                 break;
         }
         startActivity(intent);
