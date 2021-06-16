@@ -2,10 +2,13 @@ package com.example.childandroid;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -28,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,6 +52,7 @@ import com.google.firebase.storage.UploadTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -64,7 +69,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
     Toolbar toolbar;
     private static final int PICK_VIDEO = 1;
     private VideoView videoView;
-    private Button button;
+    private CardView button;
     private ProgressBar progressBar;
     private EditText editText;
     private Uri videoUri;
@@ -73,6 +78,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
     StorageReference storageReference;
     DatabaseReference databaseReference;
     UploadTask uploadTask;
+    String res = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +109,13 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
 
         //        ======================navigation bar======================
 
-
+        findViewById(R.id.add_post_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("hereeeeeeeeeee");
+                submitPost();
+            }
+        });
 //        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -115,14 +127,18 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
         String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -130,7 +146,16 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
 
     //    ==================================to prevent go out of the the app
@@ -148,6 +173,8 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(AddPost_Activity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(AddPost_Activity.this, feedsActivity.class);
@@ -169,6 +196,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(AddPost_Activity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(AddPost_Activity.this, ParentSignInActivity.class);
@@ -181,7 +209,15 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(AddPost_Activity.this, MainActivity.class);
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(AddPost_Activity.this, SignUp.class);
+                break;
+            case R.id.nav_chat:
+                intent = new Intent(AddPost_Activity.this, ChatActivity.class);
+                break;
+
         }
         startActivity(intent);
         return true;
@@ -244,7 +280,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    public void submitPost(View view) {
+    public void submitPost() {
         EditText title = findViewById(R.id.add_post_title);
         EditText body = findViewById(R.id.post_body_add);
 
@@ -269,19 +305,57 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println("failed");
 //                e.printStackTrace();
+                Toast.makeText(AddPost_Activity.this, "Bad content, you can't publish", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String myResponse = response.body().string();
-                    response.code();
-                    response.isSuccessful();
-                    Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
-                    startActivity(parentPageActivityIntent);
+
+                    res = response.body().string();
+                    System.out.println(res);
+
                 }
             }
         });
+        try {
+            Thread.sleep(5000);
+            if(res.equals("Bad Content")){
+                Toast.makeText(AddPost_Activity.this, "Bad content, you can't publish", Toast.LENGTH_SHORT).show();
+            }else{
+                System.out.println("after adding post");
+                Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
+                startActivity(parentPageActivityIntent);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("eroooooooooooooooooor");
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddPost_Activity that = (AddPost_Activity) o;
+        return Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar) &&
+                Objects.equals(videoView, that.videoView) &&
+                Objects.equals(button, that.button) &&
+                Objects.equals(progressBar, that.progressBar) &&
+                Objects.equals(editText, that.editText) &&
+                Objects.equals(videoUri, that.videoUri) &&
+                Objects.equals(mediaController, that.mediaController) &&
+                Objects.equals(member, that.member) &&
+                Objects.equals(storageReference, that.storageReference) &&
+                Objects.equals(databaseReference, that.databaseReference) &&
+                Objects.equals(uploadTask, that.uploadTask);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(drawerLayout, navigationView, toolbar, videoView, button, progressBar, editText, videoUri, mediaController, member, storageReference, databaseReference, uploadTask);
     }
 }
