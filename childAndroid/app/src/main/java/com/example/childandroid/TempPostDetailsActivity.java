@@ -6,9 +6,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -23,6 +26,7 @@ import com.google.gson.Gson;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -51,6 +55,20 @@ public class TempPostDetailsActivity extends AppCompatActivity implements Naviga
                 .url(url)
                 .build();
 
+
+
+        findViewById(R.id.accept).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog dialog = new DatePickerDialog(SignUp.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDataSetListner, year, month, day);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+                    }
+                });
         that = this;
         System.out.println("myHandler: here!"); // Do your work here
         httpClient.newCall(request).enqueue(new Callback() {
@@ -62,14 +80,7 @@ public class TempPostDetailsActivity extends AppCompatActivity implements Naviga
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    Gson gson = new Gson();
-                    // serialize
-                    String body = response.body().string();
-                    System.out.println("isSuccessful");
-                    System.out.println(body);
-                    System.out.println(response.body());
-                    System.out.println(response.body());
-                    post = gson.fromJson(body, Post.class);
+                    postAccept();
                 }
             }
         });
@@ -170,7 +181,7 @@ public class TempPostDetailsActivity extends AppCompatActivity implements Naviga
         return true;
     }
 
-    public void postAccept(View view) {
+    public void postAccept() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
