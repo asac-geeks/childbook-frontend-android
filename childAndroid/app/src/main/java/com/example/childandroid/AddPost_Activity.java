@@ -84,7 +84,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
 
         button = findViewById(R.id.upload_vedio);
         videoView = findViewById(R.id.videoView);
-        progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
         editText = findViewById(R.id.vedio_name);
         mediaController = new MediaController(this);
         member = new Member();
@@ -227,7 +227,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
                     System.out.println(task.isSuccessful());
                     if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
-                        progressBar.setVisibility(View.INVISIBLE);
+//                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(AddPost_Activity.this, "DataSave Save", Toast.LENGTH_SHORT).show();
                         member.setName(videoName);
                         member.setUrl(downloadUri.toString());
