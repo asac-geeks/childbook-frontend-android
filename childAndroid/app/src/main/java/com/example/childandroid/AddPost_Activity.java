@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,6 +78,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
     StorageReference storageReference;
     DatabaseReference databaseReference;
     UploadTask uploadTask;
+    String res = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -302,31 +305,33 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println("failed");
 //                e.printStackTrace();
-                Toast toast=Toast.makeText(getApplicationContext(),"Bad content, you can't publish",Toast.LENGTH_SHORT);
-                toast.setMargin(50,50);
-                toast.show();
+                Toast.makeText(AddPost_Activity.this, "Bad content, you can't publish", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String myResponse = response.body().string();
-                    System.out.println(myResponse);
-                    if(myResponse.equals("Bad Content")){
-                        Toast toast=Toast.makeText(getApplicationContext(),"Bad content, you can't publish",Toast.LENGTH_SHORT);
-                        toast.setMargin(50,50);
-                        toast.show();
-                    }else{
-                        System.out.println("after adding post");
-                        response.code();
-                        response.isSuccessful();
-                        Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
-                        startActivity(parentPageActivityIntent);
-                    }
+
+                    res = response.body().string();
+                    System.out.println(res);
 
                 }
             }
         });
+        try {
+            Thread.sleep(5000);
+            if(res.equals("Bad Content")){
+                Toast.makeText(AddPost_Activity.this, "Bad content, you can't publish", Toast.LENGTH_SHORT).show();
+            }else{
+                System.out.println("after adding post");
+                Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
+                startActivity(parentPageActivityIntent);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("eroooooooooooooooooor");
+        }
     }
 
     @Override
