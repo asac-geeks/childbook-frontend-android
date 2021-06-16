@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildAndroid"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyPostAllCommentsActivity"></activity>
+        <activity android:name=".PostDetailAllActivity"></activity>
+        <activity android:name=".MyPostAllCommentsActivity" />
         <activity android:name=".MyPostAllShareActivity" />
         <activity android:name=".UpdatePostActivity" />
         <activity android:name=".TempPostDetailsActivity" />
