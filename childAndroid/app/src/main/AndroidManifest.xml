@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChildAndroid"
         android:usesCleartextTraffic="true">
+        <activity android:name=".YouTubePlayerLocally"></activity>
         <activity android:name=".PostDetailAllActivity"></activity>
         <activity android:name=".MyPostAllCommentsActivity" />
         <activity android:name=".MyPostAllShareActivity" />
