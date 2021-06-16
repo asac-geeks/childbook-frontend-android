@@ -119,7 +119,7 @@
                         android:layout_height="250dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/maptitle"
+                        app:layout_constraintTop_toBottomOf="@+id/maptitle"
                         tools:layout_editor_absoluteX="10dp"
                         tools:layout_editor_absoluteY="30dp" />
 
