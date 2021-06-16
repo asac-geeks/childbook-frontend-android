@@ -9,13 +9,13 @@
     tools:context=".UpdateChildActivity"
     tools:openDrawer="start">
 
-    <!--    <com.google.android.material.navigation.NavigationView-->
-    <!--        android:id="@+id/nav_view"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_gravity="start"-->
-    <!--        app:headerLayout="@layout/header"-->
-    <!--        app:menu="@menu/main_menu" />-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/header"
+            app:menu="@menu/main_menu" />
 
 
     <ScrollView
@@ -286,6 +286,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/secondary"
+                android:onClick="updateChildButton"
                 app:cardCornerRadius="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
