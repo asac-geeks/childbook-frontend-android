@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
 
 
@@ -256,6 +258,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_child_signUp:
                 intent = new Intent(MainActivity.this, SignUp.class);
                 break;
+            case R.id.nav_chat:
+                intent = new Intent(MainActivity.this, ChatActivity.class);
+                break;
+
         }
         startActivity(intent);
         return true;

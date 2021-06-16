@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -127,14 +128,16 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
 
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
-        String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -142,9 +145,17 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+        Context context = this;
     }
     //    ==================================to prevent go out of the the app
     @Override
@@ -161,6 +172,7 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(NotificationsActivity.this, MainActivity.class);
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(NotificationsActivity.this, feedsActivity.class);
@@ -180,8 +192,10 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
+                intent = new Intent(NotificationsActivity.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(NotificationsActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(NotificationsActivity.this, ParentSignInActivity.class);
@@ -191,9 +205,12 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                intent = new Intent(NotificationsActivity.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+            case R.id.nav_chat:
+                intent = new Intent(NotificationsActivity.this, ChatActivity.class);
                 break;
         }
         startActivity(intent);

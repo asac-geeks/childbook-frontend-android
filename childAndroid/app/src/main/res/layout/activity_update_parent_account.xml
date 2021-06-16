@@ -276,6 +276,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/secondary"
+            android:onClick="update_parent"
             app:cardCornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

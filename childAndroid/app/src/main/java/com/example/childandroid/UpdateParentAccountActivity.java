@@ -2,6 +2,7 @@ package com.example.childandroid;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -61,16 +62,18 @@ public class UpdateParentAccountActivity extends AppCompatActivity implements Na
 //        =======================================Navigation Drawer Menu
 
 // ============================== Hide not needed items from navBar
-        Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        Menu menu = navigationView.getMenu();
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -78,7 +81,16 @@ public class UpdateParentAccountActivity extends AppCompatActivity implements Na
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
     //    ==================================to prevent go out of the the app
     @Override
@@ -95,6 +107,7 @@ public class UpdateParentAccountActivity extends AppCompatActivity implements Na
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(UpdateParentAccountActivity.this, MainActivity.class);
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(UpdateParentAccountActivity.this, feedsActivity.class);
@@ -114,8 +127,10 @@ public class UpdateParentAccountActivity extends AppCompatActivity implements Na
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
+                intent = new Intent(UpdateParentAccountActivity.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(UpdateParentAccountActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(UpdateParentAccountActivity.this, ParentSignInActivity.class);
@@ -125,9 +140,12 @@ public class UpdateParentAccountActivity extends AppCompatActivity implements Na
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                intent = new Intent(UpdateParentAccountActivity.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+            case R.id.nav_chat:
+                intent = new Intent(UpdateParentAccountActivity.this, ChatActivity.class);
                 break;
         }
         startActivity(intent);
@@ -179,6 +197,7 @@ public class UpdateParentAccountActivity extends AppCompatActivity implements Na
             requiredField.setText("Enter Required Fields");
         }
     }
+
 //    @Override
 //    public boolean equals(@Nullable @org.jetbrains.annotations.Nullable Object obj) {
 //        return super.equals(obj);

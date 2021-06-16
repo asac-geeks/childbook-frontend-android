@@ -63,9 +63,8 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
 //        =======================================Navigation Drawer Menu
 
 // ============================== Hide not needed items from navBar
-        Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        System.out.println( preferences.getString("token", ""));
+        Menu menu = navigationView.getMenu();
         if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
@@ -73,6 +72,9 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -80,9 +82,9 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
-
-
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -166,7 +168,6 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
         switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(ParentSignInActivity.this, MainActivity.class);
-
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ParentSignInActivity.this, feedsActivity.class);
@@ -186,8 +187,10 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
+                intent = new Intent(ParentSignInActivity.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ParentSignInActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(ParentSignInActivity.this, ParentSignInActivity.class);
@@ -197,12 +200,12 @@ public class ParentSignInActivity extends AppCompatActivity implements Navigatio
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                intent = new Intent(ParentSignInActivity.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
-                break;
-            case R.id.nav_child_signUp:
-                intent = new Intent(ParentSignInActivity.this, SignUp.class);
+            case R.id.nav_chat:
+                intent = new Intent(ParentSignInActivity.this, ChatActivity.class);
                 break;
         }
         startActivity(intent);

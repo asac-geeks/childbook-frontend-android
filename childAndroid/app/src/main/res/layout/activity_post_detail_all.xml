@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostDelailsActivity">
-
+    tools:context=".PostDetailAllActivity">
     <TextView
         android:id="@+id/post_detail_username"
         android:layout_width="wrap_content"
@@ -41,31 +40,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/update_post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:onClick="updatePost"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_comments"
-        app:layout_constraintVertical_bias="0.241" />
-
-    <Button
-        android:id="@+id/delete_post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="deletePost"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.569"
-        app:layout_constraintStart_toEndOf="@+id/update_post"
-        app:layout_constraintTop_toBottomOf="@+id/all_share"
-        app:layout_constraintVertical_bias="0.26" />
-
-    <Button
         android:id="@+id/all_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,7 +71,7 @@
         android:text="Add Comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_post" />
+        tools:layout_editor_absoluteY="622dp" />
 
     <EditText
         android:id="@+id/my_post_comment"
@@ -128,4 +102,20 @@
         android:text="Button"
         tools:layout_editor_absoluteX="188dp"
         tools:layout_editor_absoluteY="505dp" />
+
+    <Button
+        android:id="@+id/add_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="560dp" />
+
+    <Button
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        tools:layout_editor_absoluteX="407dp"
+        tools:layout_editor_absoluteY="544dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

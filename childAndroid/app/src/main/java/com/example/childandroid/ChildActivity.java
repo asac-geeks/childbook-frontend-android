@@ -1,6 +1,7 @@
 package com.example.childandroid;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
@@ -71,7 +72,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String token = "Bearer " + preferences.getString("token", "");
         String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
@@ -79,6 +80,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -88,8 +90,15 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
-
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 2);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -275,6 +284,7 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ChildActivity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(ChildActivity.this, ParentSignInActivity.class);
@@ -287,10 +297,15 @@ public class ChildActivity extends AppCompatActivity implements NavigationView.O
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(ChildActivity.this, MainActivity.class);
                 break;
             case R.id.nav_child_signUp:
                 intent = new Intent(ChildActivity.this, SignUp.class);
                 break;
+            case R.id.nav_chat:
+                intent = new Intent(ChildActivity.this, ChatActivity.class);
+                break;
+
         }
         startActivity(intent);
         return true;
