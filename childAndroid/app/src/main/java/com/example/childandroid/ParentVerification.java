@@ -117,6 +117,7 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
             menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
 
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
@@ -126,6 +127,7 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
             menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
 
         }
     }
@@ -145,7 +147,6 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
         switch (item.getItemId()) {
             case R.id.nav_home:
                 intent = new Intent(ParentVerification.this, MainActivity.class);
-
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ParentVerification.this, feedsActivity.class);
@@ -165,6 +166,7 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
+                intent = new Intent(ParentVerification.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
                 break;
@@ -176,12 +178,16 @@ public class ParentVerification extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_parent_logout:
                 preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                intent = new Intent(ParentVerification.this, MainActivity.class);
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
                 break;
             case R.id.nav_child_signUp:
                 intent = new Intent(ParentVerification.this, SignUp.class);
+                break;
+            case R.id.nav_chat:
+                intent = new Intent(ParentVerification.this, ChatActivity.class);
                 break;
         }
         startActivity(intent);
