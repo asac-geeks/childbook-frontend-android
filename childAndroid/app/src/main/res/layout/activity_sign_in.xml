@@ -14,13 +14,13 @@
     tools:context=".ParentSignInActivity"
     tools:openDrawer="start">
 
-    <!--        <com.google.android.material.navigation.NavigationView-->
-    <!--            android:id="@+id/nav_view"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:layout_gravity="start"-->
-    <!--            app:headerLayout="@layout/header"-->
-    <!--            app:menu="@menu/main_menu" />-->
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:headerLayout="@layout/header"
+                app:menu="@menu/main_menu" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -121,6 +121,7 @@
 
                 <EditText
                     android:id="@+id/loginParentEmailFeild"
+                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -139,7 +140,7 @@
             android:id="@+id/parent_password_card"
             android:layout_width="500dp"
             android:layout_height="50dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,6 +178,7 @@
                 <EditText
                     android:id="@+id/loginParentPasswordFeild"
                     android:layout_width="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:text="password"
@@ -190,12 +192,12 @@
 
         <!--========================================-->
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="50dp"
             android:id="@+id/parentLoginButton"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_marginTop="0dp"
-            android:backgroundTint="@color/banafsaji"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/secondary"
+            app:cardCornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/parent_password_card">

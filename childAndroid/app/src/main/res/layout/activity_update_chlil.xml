@@ -1,70 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdateChildActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".UpdateChildActivity"
+    tools:openDrawer="start">
 
-    <TextView
-        android:id="@+id/update_child"
-        android:layout_width="82dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="68dp"
-        android:text="Update Child"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/header"
+            app:menu="@menu/main_menu" />
 
-    <EditText
-        android:id="@+id/update_userName_child"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/update_email_child"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Parent Email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/update_password_child"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="396dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/update_child_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
-        android:onClick="updateChildButton"
-        android:text="Update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+
+                android:src="@drawable/logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/child_update_card"
+                android:layout_width="500dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="300dp"
+                android:backgroundTint="@color/primarylight"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:id="@+id/st_update_child_img"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/mask"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/update_child_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="Update your profile"
+                        android:textColor="@color/fontbuttoncolor"
+                        android:textSize="40dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/st_update_child_img"></TextView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/child_update_username_card"
+                android:layout_width="500dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/child_update_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:id="@+id/update_child_username_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="0dp"
+                        android:src="@drawable/child_username"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/update_child_username_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Username"
+                        android:textColor="@color/fontbuttoncolor"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/update_child_username_img"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                    <EditText
+                        android:id="@+id/update_userName_child"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="username"
+                        android:textColor="@color/fontcolorfirst"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/update_child_username_tv"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/update_userName_child"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:text="Username"-->
+            <!--                tools:layout_editor_absoluteX="73dp"-->
+            <!--                tools:layout_editor_absoluteY="378dp" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/update_child"-->
+            <!--                android:layout_width="82dp"-->
+            <!--                android:layout_height="36dp"-->
+            <!--                android:text="Update Child"-->
+            <!--                android:textSize="24sp"-->
+            <!--                tools:layout_editor_absoluteX="125dp"-->
+            <!--                tools:layout_editor_absoluteY="335dp" />-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/child_update_email_card"
+                android:layout_width="500dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/child_update_username_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/update_parent_password_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="0dp"
+                        android:src="@drawable/ic_baseline_email_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/update_child_email_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Parent Email"
+                        android:textColor="@color/fontbuttoncolor"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/update_parent_password_img"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                    <EditText
+                        android:id="@+id/update_email_child"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="email"
+                        android:textColor="@color/fontcolorfirst"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/update_child_email_tv"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/update_email_child"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:text="Parent Email"-->
+            <!--                tools:layout_editor_absoluteX="73dp"-->
+            <!--                tools:layout_editor_absoluteY="433dp" />-->
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/child_update_password_card"
+                android:layout_width="500dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/child_update_email_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:id="@+id/password_uC"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="0dp"
+                        android:src="@drawable/child_passord_dyn"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/update_child_password_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Email"
+                        android:textColor="@color/fontbuttoncolor"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/password_uC"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                    <EditText
+                        android:id="@+id/update_password_child"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="email"
+                        android:textColor="@color/fontcolorfirst"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/update_child_password_tv"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <!--      you are here====================================================-->
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/update_password_child"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textPersonName"-->
+            <!--                android:text="Password"-->
+            <!--                tools:layout_editor_absoluteX="78dp"-->
+            <!--                tools:layout_editor_absoluteY="496dp" />-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/update_child_button"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/secondary"
+                android:onClick="updateChildButton"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/child_update_password_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <pl.droidsonroids.gif.GifImageView
+                        android:id="@+id/parent_login_image"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="0dp"
+                        android:src="@drawable/exchange"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/login_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Update"
+                        android:textColor="@color/fontbuttoncolor"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/parent_login_image"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <!--            <Button-->
+            <!--                android:id="@+id/update_child_button"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:onClick="updateChildButton"-->
+            <!--                android:text="Update"-->
+            <!--                tools:layout_editor_absoluteX="138dp"-->
+            <!--                tools:layout_editor_absoluteY="588dp" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.drawerlayout.widget.DrawerLayout>

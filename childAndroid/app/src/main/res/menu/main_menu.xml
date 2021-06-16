@@ -10,24 +10,57 @@
             android:icon="@drawable/home_icon"
             android:title="Childtube" />
         <item
-            android:id="@+id/our_games"
+            android:id="@+id/nav_our_games"
             android:icon="@drawable/home_icon"
             android:title="Our Games" />
+        <item
+            android:id="@+id/nav_whiteboard"
+            android:icon="@drawable/home_icon"
+            android:title="Whiteboard" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/home_icon"
+            android:title="Chat" />
     </group>
 
-    <item android:title="Profile">
+    <item android:title="My Profile">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_login"
+                    android:id="@+id/nav_child_login"
                     android:icon="@drawable/home_icon"
                     android:title="Login" />
+
                 <item
-                    android:id="@+id/nav_profile"
+                    android:id="@+id/nav_child_profile"
                     android:icon="@drawable/home_icon"
                     android:title="Profile" />
                 <item
-                    android:id="@+id/nav_logout"
+                    android:id="@+id/nav_child_logout"
+                    android:icon="@drawable/home_icon"
+                    android:title="Logout" />
+                <item
+                    android:id="@+id/nav_child_signUp"
+                    android:icon="@drawable/home_icon"
+                    android:title="Signup" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Parent Profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_parent_login"
+                    android:icon="@drawable/home_icon"
+                    android:title="Login" />
+
+                <item
+                    android:id="@+id/nav_parent_profile"
+                    android:icon="@drawable/home_icon"
+                    android:title="Profile" />
+                <item
+                    android:id="@+id/nav_parent_logout"
                     android:icon="@drawable/home_icon"
                     android:title="Logout" />
             </group>
