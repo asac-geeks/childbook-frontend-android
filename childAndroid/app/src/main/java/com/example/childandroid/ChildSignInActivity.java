@@ -3,6 +3,7 @@ package com.example.childandroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -49,7 +51,7 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
 
         TextView childUsername = findViewById(R.id.loginChildUserNameFeild);
         TextView childPassword = findViewById(R.id.loginChildPasswordFeild);
-        Button childLoginButton = findViewById(R.id.childLoginButton);
+        CardView childLoginButton = findViewById(R.id.childLoginButton);
 
         //        ======================navigation bar======================
 
@@ -65,14 +67,15 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = "Bearer " + preferences.getString("token", "");
-        if (token.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -80,6 +83,7 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
         }
 
         childLoginButton.setOnClickListener(v -> {
@@ -161,12 +165,13 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
         }
     }
 
-
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(ChildSignInActivity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(ChildSignInActivity.this, feedsActivity.class);
@@ -201,8 +206,29 @@ public class ChildSignInActivity extends AppCompatActivity implements Navigation
                 editor.remove("token");
                 editor.commit();
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(ChildSignInActivity.this, SignUp.class);
+                break;
         }
         startActivity(intent);
         return true;
+    }
+//    ====================================================================
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChildSignInActivity that = (ChildSignInActivity) o;
+        return Objects.equals(url, that.url) &&
+                Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, drawerLayout, navigationView, toolbar);
     }
 }
