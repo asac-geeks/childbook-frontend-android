@@ -50,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -301,19 +302,55 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 System.out.println("failed");
 //                e.printStackTrace();
-
+                Toast toast=Toast.makeText(getApplicationContext(),"Bad content, you can't publish",Toast.LENGTH_SHORT);
+                toast.setMargin(50,50);
+                toast.show();
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    response.code();
-                    response.isSuccessful();
-                    Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
-                    startActivity(parentPageActivityIntent);
+                    System.out.println(myResponse);
+                    if(myResponse.equals("Bad Content")){
+                        Toast toast=Toast.makeText(getApplicationContext(),"Bad content, you can't publish",Toast.LENGTH_SHORT);
+                        toast.setMargin(50,50);
+                        toast.show();
+                    }else{
+                        System.out.println("after adding post");
+                        response.code();
+                        response.isSuccessful();
+                        Intent parentPageActivityIntent = new Intent(AddPost_Activity.this, ChildTemporary.class);
+                        startActivity(parentPageActivityIntent);
+                    }
+
                 }
             }
         });
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddPost_Activity that = (AddPost_Activity) o;
+        return Objects.equals(drawerLayout, that.drawerLayout) &&
+                Objects.equals(navigationView, that.navigationView) &&
+                Objects.equals(toolbar, that.toolbar) &&
+                Objects.equals(videoView, that.videoView) &&
+                Objects.equals(button, that.button) &&
+                Objects.equals(progressBar, that.progressBar) &&
+                Objects.equals(editText, that.editText) &&
+                Objects.equals(videoUri, that.videoUri) &&
+                Objects.equals(mediaController, that.mediaController) &&
+                Objects.equals(member, that.member) &&
+                Objects.equals(storageReference, that.storageReference) &&
+                Objects.equals(databaseReference, that.databaseReference) &&
+                Objects.equals(uploadTask, that.uploadTask);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(drawerLayout, navigationView, toolbar, videoView, button, progressBar, editText, videoUri, mediaController, member, storageReference, databaseReference, uploadTask);
     }
 }
