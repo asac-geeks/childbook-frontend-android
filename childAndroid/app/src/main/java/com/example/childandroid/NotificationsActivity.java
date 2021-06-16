@@ -145,9 +145,9 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
-            menu.findItem(R.id.n        }
-        av_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
             menu.findItem(R.id.nav_chat).setVisible(true);
+        }
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -172,6 +172,7 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(NotificationsActivity.this, MainActivity.class);
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(NotificationsActivity.this, feedsActivity.class);
@@ -191,6 +192,7 @@ public class NotificationsActivity extends AppCompatActivity implements Navigati
             case R.id.nav_child_logout:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = preferences.edit();
+                intent = new Intent(NotificationsActivity.this, MainActivity.class);
                 editor.remove("token");
                 editor.commit();
                 intent = new Intent(NotificationsActivity.this, MainActivity.class);
