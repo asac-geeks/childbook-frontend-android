@@ -2,8 +2,10 @@ package com.example.childandroid;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -64,7 +66,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
     Toolbar toolbar;
     private static final int PICK_VIDEO = 1;
     private VideoView videoView;
-    private Button button;
+    private CardView button;
     private ProgressBar progressBar;
     private EditText editText;
     private Uri videoUri;
@@ -103,7 +105,13 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
 
         //        ======================navigation bar======================
 
-
+        findViewById(R.id.add_post_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("hereeeeeeeeeee");
+                submitPost();
+            }
+        });
 //        =======================================Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -115,14 +123,18 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
 // ============================== Hide not needed items from navBar
         Menu menu = navigationView.getMenu();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String token = "Bearer " + preferences.getString("token", "");
         String checker = preferences.getString("token", "");
-        if (checker.equals("")) {
+        if (preferences.getString("token", "").equals("")) {
             menu.findItem(R.id.nav_child_logout).setVisible(false);
             menu.findItem(R.id.nav_parent_logout).setVisible(false);
             menu.findItem(R.id.nav_child_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_profile).setVisible(false);
             menu.findItem(R.id.nav_parent_login).setVisible(true);
             menu.findItem(R.id.nav_child_login).setVisible(true);
+            menu.findItem(R.id.nav_child_signUp).setVisible(true);
+            menu.findItem(R.id.nav_chat).setVisible(false);
+
         } else {
             menu.findItem(R.id.nav_child_logout).setVisible(true);
             menu.findItem(R.id.nav_parent_logout).setVisible(true);
@@ -130,7 +142,16 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
             menu.findItem(R.id.nav_parent_profile).setVisible(true);
             menu.findItem(R.id.nav_parent_login).setVisible(false);
             menu.findItem(R.id.nav_child_login).setVisible(false);
+            menu.findItem(R.id.nav_child_signUp).setVisible(false);
+            menu.findItem(R.id.nav_chat).setVisible(true);
         }
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
     }
 
     //    ==================================to prevent go out of the the app
@@ -148,6 +169,8 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
         Intent intent = new Intent();
         switch (item.getItemId()) {
             case R.id.nav_home:
+                intent = new Intent(AddPost_Activity.this, MainActivity.class);
+
                 break;
             case R.id.nav_youtube:
                 intent = new Intent(AddPost_Activity.this, feedsActivity.class);
@@ -169,6 +192,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(AddPost_Activity.this, MainActivity.class);
                 break;
             case R.id.nav_parent_login:
                 intent = new Intent(AddPost_Activity.this, ParentSignInActivity.class);
@@ -181,7 +205,15 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
                 editor = preferences.edit();
                 editor.remove("token");
                 editor.commit();
+                intent = new Intent(AddPost_Activity.this, MainActivity.class);
                 break;
+            case R.id.nav_child_signUp:
+                intent = new Intent(AddPost_Activity.this, SignUp.class);
+                break;
+            case R.id.nav_chat:
+                intent = new Intent(AddPost_Activity.this, ChatActivity.class);
+                break;
+
         }
         startActivity(intent);
         return true;
@@ -244,7 +276,7 @@ public class AddPost_Activity extends AppCompatActivity implements NavigationVie
         }
     }
 
-    public void submitPost(View view) {
+    public void submitPost() {
         EditText title = findViewById(R.id.add_post_title);
         EditText body = findViewById(R.id.post_body_add);
 
