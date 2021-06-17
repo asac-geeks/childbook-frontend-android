@@ -13,11 +13,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.JsonReader;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.childandroid.modules.ParentResponse;
 import com.example.childandroid.modules.Post;
+import com.example.childandroid.modules.feedRes;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import okhttp3.Call;
@@ -34,6 +38,48 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.example.childandroid.modules.AppUser;
+import com.example.childandroid.modules.Parent;
+import com.example.childandroid.modules.ParentResponse;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.maps.SupportMapFragment;
 
 public class AllPostsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ArrayList posts = new ArrayList();
@@ -73,11 +119,29 @@ public class AllPostsActivity extends AppCompatActivity implements NavigationVie
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     Gson gson = new Gson();
+                    // serialize
                     String body = response.body().string();
-                    System.out.println("isSuccessful Mp Posts");
-                    Type listType = new TypeToken<Set<Post>>() {
-                    }.getType();
-                    posts.addAll(new Gson().fromJson(body, listType));
+                    System.out.println("isSuccessful");
+                    System.out.println(body);
+                    System.out.println(response.body());
+                    feedRes arr = gson.fromJson(body, feedRes.class);
+                    System.out.println("parentOut");
+//                    System.out.println(parentOut);
+//                    System.out.println(parent);
+//                    List arr = new ArrayList();
+//                    arr.addAll(parent.getChildren());
+//                    children = arr;
+//
+//                    Gson gson = new Gson();
+//                    String body = response.body().string();
+                    posts = arr.getPosts();
+//                    System.out.println("isSuccessful Mp Posts");
+//                    System.out.println(body);
+//
+//                    Type listType = new TypeToken<ArrayList<Post>>() {
+//                    }.getType();
+//                    System.out.println("posts");
+//                    posts = gson.fromJson(body, listType);
                     System.out.println(posts);
                 }
             }
