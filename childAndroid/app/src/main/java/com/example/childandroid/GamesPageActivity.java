@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,7 +69,6 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
 
         // ============================== Hide not needed items from navBar
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = "Bearer " + preferences.getString("token", "");
         String checker = preferences.getString("token", "");
         Menu menu = navigationView.getMenu();
         System.out.println( preferences.getString("token", ""));
@@ -126,8 +126,10 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
                 if(response.isSuccessful()){
                     // serialize
                     String body = response.body().string();
+                    
                     Type listType = new TypeToken<ArrayList<GamesApi>>(){}.getType();
                     List<GamesApi> games = new Gson().fromJson(body, listType);
+//                    List<GamesApi> postsList = Arrays.asList(new Gson().fromJson(body,GamesApi.class));
 
                     GamesPageActivity.this.runOnUiThread(new Runnable() {
                         @Override
@@ -201,7 +203,6 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
         startActivity(intent);
         return true;
     }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen((GravityCompat.START))) {
