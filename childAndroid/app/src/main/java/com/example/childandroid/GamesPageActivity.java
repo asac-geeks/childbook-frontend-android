@@ -126,7 +126,7 @@ public class GamesPageActivity extends AppCompatActivity implements NavigationVi
                 if(response.isSuccessful()){
                     // serialize
                     String body = response.body().string();
-                    
+
                     Type listType = new TypeToken<ArrayList<GamesApi>>(){}.getType();
                     List<GamesApi> games = new Gson().fromJson(body, listType);
 //                    List<GamesApi> postsList = Arrays.asList(new Gson().fromJson(body,GamesApi.class));
